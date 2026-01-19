@@ -129,7 +129,7 @@ export default function Dashboard({
             <Head title="Dashboard" />
 
             <div className="py-6">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div className=" mx-auto px-4 sm:px-6 lg:px-8">
                     {/* Header */}
                     <div className="mb-8">
                         <div className="flex flex-col md:flex-row md:items-center justify-between">
@@ -474,6 +474,8 @@ export default function Dashboard({
                                                 <td className="px-4 py-4 whitespace-nowrap">
                                                     <div className="flex items-center">
                                                         <div className="h-10 w-10 rounded-full bg-blue-100 flex items-center justify-center">
+                                                            {/*<Building className="w-5 h-5 text-blue-600" />*/}
+                                                            Building
                                                         </div>
                                                         <div className="ml-4">
                                                             <div className="text-sm font-medium text-gray-900">
