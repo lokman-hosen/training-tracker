@@ -7,20 +7,42 @@ use Illuminate\Support\Facades\Storage;
 
 class EmployeeService
 {
-    public function getAllEmployees($search = null, $perPage = 10)
+    public function getAllEmployees($request)
     {
-        $query = Employee::withCount('trainings');
+//        $query = Employee::withCount(['trainings' => function ($query) {
+//            $query->where('completed', false);
+//        }]);
+        $query = Employee::query();
 
-        if ($search) {
+        // Search
+        if ($request->has('search') && $request->search) {
+            $search = $request->search;
             $query->where(function ($q) use ($search) {
                 $q->where('name', 'like', "%{$search}%")
                     ->orWhere('employee_id', 'like', "%{$search}%")
                     ->orWhere('email', 'like', "%{$search}%")
-                    ->orWhere('phone', 'like', "%{$search}%");
+                    ->orWhere('phone', 'like', "%{$search}%")
+                    ->orWhere('designation', 'like', "%{$search}%");
             });
         }
+        // Department filter
+        if ($request->has('department') && $request->department) {
+            $query->where('department', $request->department);
+        }
 
-        return $query->latest()->paginate($perPage);
+        // Sorting
+        $sortField = $request->get('sort', 'name');
+        $sortDirection = $request->get('direction', 'asc');
+
+        if (in_array($sortField, ['name', 'department', 'joining_date', 'created_at'])) {
+            $query->orderBy($sortField, $sortDirection);
+        } else {
+            $query->orderBy('name', 'asc');
+        }
+
+        return $query->latest()->paginate($request->perPage ?? 10)
+            ->withQueryString();
+
     }
 
     public function createEmployee(array $data)

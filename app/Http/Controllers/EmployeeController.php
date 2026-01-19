@@ -20,20 +20,26 @@ class EmployeeController extends Controller
 
     public function index(Request $request)
     {
-        $employees = $this->employeeService->getAllEmployees(
-            $request->search,
-            $request->perPage ?? 10
-        );
 
-        return Inertia::render('Admin/Employees/Index', [
+        $employees = $this->employeeService->getAllEmployees($request);
+        // Get unique departments for filter
+        $departments = Employee::select('department')
+            ->whereNotNull('department')
+            ->distinct()
+            ->pluck('department')
+            ->toArray();
+
+        return Inertia::render('Employees/Index', [
             'employees' => $employees,
-            'filters' => $request->only(['search', 'perPage'])
+            'filters' => $request->only(['search', 'department', 'status', 'sort', 'direction', 'perPage']),
+            //'filters' => [],
+            'departments' => $departments
         ]);
     }
 
     public function create()
     {
-        return Inertia::render('Admin/Employees/Create');
+        return Inertia::render('Employees/Create');
     }
 
     public function store(Request $request)
