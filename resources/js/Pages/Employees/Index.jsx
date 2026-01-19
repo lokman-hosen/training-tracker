@@ -31,7 +31,7 @@ export default function Index({ employees, departments, filters }) {
     const [search, setSearch] = useState(safeFilters?.search || '');
     const [selectedDepartment, setSelectedDepartment] = useState(safeFilters?.department || '');
     const [selectedStatus, setSelectedStatus] = useState(safeFilters?.status || '');
-    //const [sortField, setSortField] = useState(safeFilters?.sort || '');
+    const [sortField, setSortField] = useState(safeFilters?.short || '');
     const [sortDirection, setSortDirection] = useState(safeFilters?.direction || 'asc');
     const [selectedRows, setSelectedRows] = useState([]);
     const [showFilters, setShowFilters] = useState(false);
@@ -48,7 +48,7 @@ export default function Index({ employees, departments, filters }) {
         }, 500);
 
         return () => clearTimeout(timer);
-    }, [search, selectedDepartment, selectedStatus, sortDirection]);
+    }, [search, selectedDepartment, selectedStatus, sortField, sortDirection]);
 
     const updateFilters = () => {
         if (initialRender.current) {
@@ -59,7 +59,7 @@ export default function Index({ employees, departments, filters }) {
         if (search) params.search = search;
         if (selectedDepartment) params.department = selectedDepartment;
         if (selectedStatus) params.status = selectedStatus;
-        //if (sortField) params.sort = sortField;
+        if (sortField) params.sort = sortField;
         if (sortDirection) params.direction = sortDirection;
 
         router.get(route('admin.employees.index'), params, {
@@ -68,14 +68,14 @@ export default function Index({ employees, departments, filters }) {
         });
     };
 
-    // const handleSort = (field) => {
-    //     if (sortField === field) {
-    //         setSortDirection(sortDirection === 'asc' ? 'desc' : 'asc');
-    //     } else {
-    //         setSortField(field);
-    //         setSortDirection('asc');
-    //     }
-    // };
+    const handleSort = (field) => {
+        if (sortField === field) {
+            setSortDirection(sortDirection === 'asc' ? 'desc' : 'asc');
+        } else {
+            setSortField(field);
+            setSortDirection('asc');
+        }
+    };
 
     const deleteEmployee = (id) => {
         if (confirm('Are you sure you want to delete this employee? This action cannot be undone.')) {
@@ -142,7 +142,7 @@ export default function Index({ employees, departments, filters }) {
     ];
 
     const SortIcon = ({ field }) => {
-        //if (sortField !== field) return null;
+        if (sortField !== field) return null;
         return sortDirection === 'asc' ?
             <ChevronUp className="w-4 h-4 ml-1" /> :
             <ChevronDown className="w-4 h-4 ml-1" />;
@@ -153,7 +153,7 @@ export default function Index({ employees, departments, filters }) {
             <Head title="Employees Management" />
 
             <div className="py-6">
-                <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                <div className="mx-auto sm:px-6 lg:px-8">
                     {/* Header Section */}
                     <div className="mb-6">
                         <div className="flex flex-col md:flex-row md:items-center justify-between">

@@ -31,7 +31,7 @@ class EmployeeService
         }
 
         // Sorting
-        $sortField = $request->get('sort', 'name');
+        $sortField = $request->get('short', 'name');
         $sortDirection = $request->get('direction', 'asc');
 
         if (in_array($sortField, ['name', 'department', 'joining_date', 'created_at'])) {

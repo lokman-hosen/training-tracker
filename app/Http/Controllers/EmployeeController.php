@@ -31,7 +31,7 @@ class EmployeeController extends Controller
 
         return Inertia::render('Employees/Index', [
             'employees' => $employees,
-            'filters' => $request->only(['search', 'department', 'status', 'sort', 'direction', 'perPage']),
+            'filters' => $request->only(['search', 'department', 'status', 'short', 'direction', 'perPage']),
             //'filters' => [],
             'departments' => $departments
         ]);
