@@ -1,6 +1,10 @@
 <?php
 
+use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\TrainingController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -22,9 +26,9 @@ Route::post('register', function () {
     return redirect()->route('login');
 });
 
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+//Route::get('/dashboard', function () {
+//    return Inertia::render('Dashboard');
+//})->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -34,29 +38,29 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     // Admin routes
-//    Route::prefix('admin')->name('admin.')->group(function () {
-//        // Dashboard
-//        Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-//
-//        // Users
-//        Route::resource('users', UserController::class)->except(['show']);
-//
-//        // Employees
-//        Route::resource('employees', EmployeeController::class);
-//        Route::post('/employees/{employee}/assign-training', [EmployeeController::class, 'assignTraining'])
-//            ->name('employees.assign-training');
-//        Route::delete('/employees/{employee}/remove-training/{training}', [EmployeeController::class, 'removeTraining'])
-//            ->name('employees.remove-training');
-//
-//        // Trainings
-//        Route::resource('trainings', TrainingController::class);
-//        Route::post('/trainings/{training}/assign-employees', [TrainingController::class, 'assignEmployees'])
-//            ->name('trainings.assign-employees');
-//        Route::post('/trainings/{training}/update-status/{employee}', [TrainingController::class, 'updateEmployeeStatus'])
-//            ->name('trainings.update-status');
-//        Route::delete('/trainings/{training}/remove-employee/{employee}', [TrainingController::class, 'removeEmployee'])
-//            ->name('trainings.remove-employee');
-//    });
+    Route::name('admin.')->group(function () {
+        // Dashboard
+        Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+        // Users
+        Route::resource('users', UserController::class)->except(['show']);
+
+        // Employees
+        Route::resource('employees', EmployeeController::class);
+        Route::post('/employees/{employee}/assign-training', [EmployeeController::class, 'assignTraining'])
+            ->name('employees.assign-training');
+        Route::delete('/employees/{employee}/remove-training/{training}', [EmployeeController::class, 'removeTraining'])
+            ->name('employees.remove-training');
+
+        // Trainings
+        Route::resource('trainings', TrainingController::class);
+        Route::post('/trainings/{training}/assign-employees', [TrainingController::class, 'assignEmployees'])
+            ->name('trainings.assign-employees');
+        Route::post('/trainings/{training}/update-status/{employee}', [TrainingController::class, 'updateEmployeeStatus'])
+            ->name('trainings.update-status');
+        Route::delete('/trainings/{training}/remove-employee/{employee}', [TrainingController::class, 'removeEmployee'])
+            ->name('trainings.remove-employee');
+    });
 });
 
 
