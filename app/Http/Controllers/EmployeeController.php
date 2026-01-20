@@ -22,13 +22,8 @@ class EmployeeController extends Controller
     {
 
         $employees = $this->employeeService->getAllEmployees($request);
+        $departments = $this->employeeService->getDepartment();
         // Get unique departments for filter
-        $departments = Employee::select('department')
-            ->whereNotNull('department')
-            ->distinct()
-            ->pluck('department')
-            ->toArray();
-
         return Inertia::render('Employees/Index', [
             'employees' => $employees,
             'filters' => $request->only(['search', 'department', 'status', 'short', 'direction', 'perPage']),

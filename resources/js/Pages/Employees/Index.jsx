@@ -150,7 +150,7 @@ export default function Index({ employees, departments, filters }) {
 
     return (
         <AdminLayout>
-            <Head title="Employees Management" />
+            <Head title="Employees/Staff Management" />
 
             <div className="py-6">
                 <div className="mx-auto sm:px-6 lg:px-8">
@@ -158,19 +158,19 @@ export default function Index({ employees, departments, filters }) {
                     <div className="mb-6">
                         <div className="flex flex-col md:flex-row md:items-center justify-between">
                             <div>
-                                <h2 className="text-2xl font-bold text-gray-800">Employees Management</h2>
+                                <h2 className="text-2xl font-bold text-gray-800">Employees/Staff Management</h2>
                                 <p className="text-gray-600 mt-1">
-                                    Manage all employees and their training records
+                                    Manage all employees/staff and their training records
                                 </p>
                             </div>
                             <div className="mt-4 md:mt-0 flex items-center space-x-3">
-                                <button
-                                    onClick={exportToCSV}
-                                    className="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50"
-                                >
-                                    <Download className="w-4 h-4 mr-2" />
-                                    Export
-                                </button>
+                                {/*<button*/}
+                                {/*    onClick={exportToCSV}*/}
+                                {/*    className="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50"*/}
+                                {/*>*/}
+                                {/*    <Download className="w-4 h-4 mr-2" />*/}
+                                {/*    Export*/}
+                                {/*</button>*/}
                                 <Link
                                     href={route('admin.employees.create')}
                                     className="inline-flex items-center px-4 py-2 bg-blue-600 border border-transparent rounded-md shadow-sm text-sm font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
@@ -388,7 +388,7 @@ export default function Index({ employees, departments, filters }) {
                                                                 {employee.name}
                                                             </div>
                                                             <div className="text-sm text-gray-500">
-                                                                {employee.employee_id}
+                                                                {employee.id_number}
                                                             </div>
                                                             <div className="text-xs text-gray-400 mt-1">
                                                                 {employee.designation}
@@ -525,7 +525,7 @@ export default function Index({ employees, departments, filters }) {
                                                                 <div className="space-y-2 text-sm">
                                                                     <div className="flex">
                                                                         <span className="text-gray-500 w-32">Employee ID:</span>
-                                                                        <span className="text-gray-900">{employee.employee_id}</span>
+                                                                        <span className="text-gray-900">{employee.id_number}</span>
                                                                     </div>
                                                                     <div className="flex">
                                                                         <span className="text-gray-500 w-32">Designation:</span>

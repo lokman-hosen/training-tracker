@@ -7,19 +7,22 @@ use Illuminate\Support\Facades\Storage;
 
 class EmployeeService
 {
+    public function __construct(Employee $employee){
+        $this->employee = $employee;
+    }
     public function getAllEmployees($request)
     {
-//        $query = Employee::withCount(['trainings' => function ($query) {
+//        $query = $this->employee->withCount(['trainings' => function ($query) {
 //            $query->where('completed', false);
 //        }]);
-        $query = Employee::query();
+        $query = $this->employee->query();
 
         // Search
         if ($request->has('search') && $request->search) {
             $search = $request->search;
             $query->where(function ($q) use ($search) {
                 $q->where('name', 'like', "%{$search}%")
-                    ->orWhere('employee_id', 'like', "%{$search}%")
+                    ->orWhere('id_number', 'like', "%{$search}%")
                     ->orWhere('email', 'like', "%{$search}%")
                     ->orWhere('phone', 'like', "%{$search}%")
                     ->orWhere('designation', 'like', "%{$search}%");
@@ -51,7 +54,7 @@ class EmployeeService
 //            $data['image'] = $this->uploadImage($data['image']);
 //        }
 
-        return Employee::create($data);
+        return $this->employee->create($data);
     }
 
     public function updateEmployee(Employee $employee, array $data)
@@ -90,5 +93,14 @@ class EmployeeService
     public function removeTraining(Employee $employee, $trainingId)
     {
         return $employee->trainings()->detach($trainingId);
+    }
+
+    public function getDepartment()
+    {
+        return $this->employee->select('department')
+            ->whereNotNull('department')
+            ->distinct()
+            ->pluck('department')
+            ->toArray();
     }
 }
