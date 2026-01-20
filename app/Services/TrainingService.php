@@ -101,7 +101,7 @@ class TrainingService
     public function getTrainingWithEmployees($trainingId)
     {
         return Training::with(['employees' => function ($query) {
-            $query->select('employees.id', 'name', 'employee_id', 'designation');
+            $query->select('employees.id', 'name', 'id_number', 'designation');
         }])->findOrFail($trainingId);
     }
 

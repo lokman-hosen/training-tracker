@@ -31,7 +31,7 @@ export default function Show({ training, availableEmployees }) {
     const [showAssignForm, setShowAssignForm] = useState(false);
 
     const assignForm = useForm({
-        employee_id: '',
+        id_number: '',
         attended: false,
         completed: false,
         grade: '',
@@ -272,13 +272,13 @@ export default function Show({ training, availableEmployees }) {
                                             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                                                 <Select
                                                     label="Select Employee"
-                                                    name="employee_id"
-                                                    value={assignForm.data.employee_id}
-                                                    onChange={(e) => assignForm.setData('employee_id', e.target.value)}
-                                                    error={assignForm.errors.employee_id}
+                                                    name="id_number"
+                                                    value={assignForm.data.id_number}
+                                                    onChange={(e) => assignForm.setData('id_number', e.target.value)}
+                                                    error={assignForm.errors.id_number}
                                                     options={availableEmployees.map(emp => ({
                                                         value: emp.id,
-                                                        label: `${emp.name} (${emp.employee_id})`
+                                                        label: `${emp.name} (${emp.id_number})`
                                                     }))}
                                                     placeholder="Choose an employee"
                                                     className="md:col-span-2"
@@ -322,7 +322,7 @@ export default function Show({ training, availableEmployees }) {
                                                                 <div>
                                                                     <h4 className="font-medium text-gray-900">{employee.name}</h4>
                                                                     <p className="text-sm text-gray-500">
-                                                                        {employee.employee_id} • {employee.department}
+                                                                        {employee.id_number} • {employee.department}
                                                                     </p>
                                                                 </div>
                                                                 <div className="flex items-center space-x-2">

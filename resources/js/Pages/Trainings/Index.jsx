@@ -25,7 +25,7 @@ import {
 import Input from '@/Components/Forms/Input';
 import Select from '@/Components/Forms/Select';
 
-export default function Index({ trainings, filters }) {
+export default function Index({ pageTitle, trainings, filters }) {
     const { auth } = usePage().props;
     const [search, setSearch] = useState(filters.search || '');
     const [statusFilter, setStatusFilter] = useState(filters.status || '');
@@ -177,7 +177,7 @@ export default function Index({ trainings, filters }) {
 
     return (
         <AdminLayout>
-            <Head title="Trainings Management" />
+            <Head title={pageTitle} />
 
             <div className="py-6">
                 <div className="mx-auto sm:px-6 lg:px-8">
@@ -191,13 +191,13 @@ export default function Index({ trainings, filters }) {
                                 </p>
                             </div>
                             <div className="mt-4 md:mt-0 flex items-center space-x-3">
-                                <button
-                                    onClick={() => alert('Export functionality would be implemented here')}
-                                    className="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50"
-                                >
-                                    <Download className="w-4 h-4 mr-2" />
-                                    Export
-                                </button>
+                                {/*<button*/}
+                                {/*    onClick={() => alert('Export functionality would be implemented here')}*/}
+                                {/*    className="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50"*/}
+                                {/*>*/}
+                                {/*    <Download className="w-4 h-4 mr-2" />*/}
+                                {/*    Export*/}
+                                {/*</button>*/}
                                 <Link
                                     href={route('admin.trainings.create')}
                                     className="inline-flex items-center px-4 py-2 bg-blue-600 border border-transparent rounded-md shadow-sm text-sm font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"

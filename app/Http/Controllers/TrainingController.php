@@ -21,11 +21,10 @@ class TrainingController extends Controller
 
     public function index(Request $request): Response
     {
-        $pageTitle = "Training Programs";
         $trainings = $this->trainingService->getAllTrainings($request);
 
         return Inertia::render('Trainings/Index', [
-            'pageTitle' => $pageTitle,
+            'pageTitle' => 'Training Programs',
             'trainings' => $trainings,
             'filters' => $request->only(['search', 'status', 'date', 'short', 'direction', 'perPage'])
         ]);
@@ -33,10 +32,11 @@ class TrainingController extends Controller
 
     public function create(): Response
     {
-        $employees = Employee::select('id', 'name', 'employee_id', 'department', 'image')
+        $employees = Employee::select('id', 'name', 'id_number', 'department', 'image')
             ->get();
 
         return Inertia::render('Trainings/Create', [
+            'pageTitle' => 'Create New Training',
             'employees' => $employees
         ]);
     }
@@ -71,12 +71,12 @@ class TrainingController extends Controller
     public function show(Training $training)
     {
         $training->load(['employees' => function ($query) {
-            $query->select('employees.id', 'name', 'employee_id', 'department', 'image', 'designation');
+            $query->select('employees.id', 'name', 'id_number', 'department', 'image', 'designation');
         }]);
 
         $availableEmployees = Employee::whereDoesntHave('trainings', function ($query) use ($training) {
             $query->where('training_id', $training->id);
-        })->get(['id', 'name', 'employee_id']);
+        })->get(['id', 'name', 'id_number']);
 
         return Inertia::render('Trainings/Show', [
             'training' => $training,
@@ -86,9 +86,9 @@ class TrainingController extends Controller
 
     public function edit(Training $training)
     {
-        $training->load('employees:id,name,employee_id,department,image');
+        $training->load('employees:id,name,id_number,department,image');
 
-        $employees = Employee::select('id', 'name', 'employee_id', 'department', 'image')
+        $employees = Employee::select('id', 'name', 'id_number', 'department', 'image')
             ->get();
 
         return Inertia::render('Trainings/Edit', [

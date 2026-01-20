@@ -10,7 +10,7 @@ export default function Create({ employees }) {
             <Head title="Create New Training" />
 
             <div className="py-6">
-                <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                <div className="mx-auto sm:px-6 lg:px-8">
                     <div className="bg-white shadow-sm sm:rounded-lg">
                         <div className="p-6">
                             <div className="flex items-center justify-between mb-8">

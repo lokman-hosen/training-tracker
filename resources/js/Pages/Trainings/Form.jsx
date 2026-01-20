@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useForm, usePage } from '@inertiajs/react';
-import Input from './Input';
-import Textarea from './Textarea';
-import DateTimePicker from './DateTimePicker';
-import Select from './Select';
-import { Building, Clock } from 'lucide-react';
+import Input from "@/Components/Forms/Input.jsx";
+import Textarea from '@/Components/Forms/Textarea';
+import DateTimePicker from '@/Components/Forms/DateTimePicker';
+import Select from '@/Components/Forms/Select';
+import { Building, Clock, User } from 'lucide-react';
 
 export default function TrainingForm({ training = null }) {
     const { employees } = usePage().props;
@@ -92,7 +92,7 @@ export default function TrainingForm({ training = null }) {
 
     const employeeOptions = employees.map(employee => ({
         value: employee.id,
-        label: `${employee.name} (${employee.employee_id}) - ${employee.department || 'No Department'}`
+        label: `${employee.name} (${employee.id_number}) - ${employee.department || 'No Department'}`
     }));
 
     const calculateDuration = () => {
@@ -329,7 +329,7 @@ export default function TrainingForm({ training = null }) {
                                                         {employee.name}
                                                     </div>
                                                     <div className="text-xs text-gray-500">
-                                                        ID: {employee.employee_id}
+                                                        ID: {employee.id_number}
                                                     </div>
                                                 </div>
                                             </div>

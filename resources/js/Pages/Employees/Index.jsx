@@ -1,4 +1,3 @@
-// resources/js/Pages/Admin/Employees/Index.jsx
 import React, { useState, useEffect, useRef} from 'react';
 import { Head, Link, router, usePage } from '@inertiajs/react';
 import AdminLayout from '@/Layouts/AdminLayout';
@@ -170,6 +169,68 @@ export default function Index({ pageTitle, employees, departments, filters }) {
                                     <UserPlus className="w-4 h-4 mr-2" />
                                     Add Employee
                                 </Link>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Quick Stats */}
+                    <div className="mt-6 grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+                        <div className="bg-white p-4 rounded-lg border border-gray-200">
+                            <div className="flex items-center">
+                                <div className="bg-blue-100 p-2 rounded-lg mr-3">
+                                    <User className="w-5 h-5 text-blue-600" />
+                                </div>
+                                <div>
+                                    <p className="text-sm text-gray-500">Total Employees</p>
+                                    <p className="text-xl font-bold text-gray-900">{employees.total}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="bg-white p-4 rounded-lg border border-gray-200">
+                            <div className="flex items-center">
+                                <div className="bg-green-100 p-2 rounded-lg mr-3">
+                                    <GraduationCap className="w-5 h-5 text-green-600" />
+                                </div>
+                                <div>
+                                    <p className="text-sm text-gray-500">Avg. Trainings</p>
+                                    <p className="text-xl font-bold text-gray-900">
+                                        {employees.data.length > 0
+                                            ? Math.round(employees.data.reduce((sum, emp) => sum + (emp.trainings_count || 0), 0) / employees.data.length)
+                                            : 0
+                                        }
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="bg-white p-4 rounded-lg border border-gray-200">
+                            <div className="flex items-center">
+                                <div className="bg-purple-100 p-2 rounded-lg mr-3">
+                                    <Building className="w-5 h-5 text-purple-600" />
+                                </div>
+                                <div>
+                                    <p className="text-sm text-gray-500">Departments</p>
+                                    <p className="text-xl font-bold text-gray-900">
+                                        {getUniqueDepartments().length}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="bg-white p-4 rounded-lg border border-gray-200">
+                            <div className="flex items-center">
+                                <div className="bg-yellow-100 p-2 rounded-lg mr-3">
+                                    <Calendar className="w-5 h-5 text-yellow-600" />
+                                </div>
+                                <div>
+                                    <p className="text-sm text-gray-500">Recently Added</p>
+                                    <p className="text-xl font-bold text-gray-900">
+                                        {employees.data.filter(emp => {
+                                            const joiningDate = new Date(emp.created_at);
+                                            const weekAgo = new Date();
+                                            weekAgo.setDate(weekAgo.getDate() - 7);
+                                            return joiningDate > weekAgo;
+                                        }).length}
+                                    </p>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -639,67 +700,6 @@ export default function Index({ pageTitle, employees, departments, filters }) {
                         )}
                     </div>
 
-                    {/* Quick Stats */}
-                    <div className="mt-6 grid grid-cols-1 md:grid-cols-4 gap-4">
-                        <div className="bg-white p-4 rounded-lg border border-gray-200">
-                            <div className="flex items-center">
-                                <div className="bg-blue-100 p-2 rounded-lg mr-3">
-                                    <User className="w-5 h-5 text-blue-600" />
-                                </div>
-                                <div>
-                                    <p className="text-sm text-gray-500">Total Employees</p>
-                                    <p className="text-xl font-bold text-gray-900">{employees.total}</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="bg-white p-4 rounded-lg border border-gray-200">
-                            <div className="flex items-center">
-                                <div className="bg-green-100 p-2 rounded-lg mr-3">
-                                    <GraduationCap className="w-5 h-5 text-green-600" />
-                                </div>
-                                <div>
-                                    <p className="text-sm text-gray-500">Avg. Trainings</p>
-                                    <p className="text-xl font-bold text-gray-900">
-                                        {employees.data.length > 0
-                                            ? Math.round(employees.data.reduce((sum, emp) => sum + (emp.trainings_count || 0), 0) / employees.data.length)
-                                            : 0
-                                        }
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="bg-white p-4 rounded-lg border border-gray-200">
-                            <div className="flex items-center">
-                                <div className="bg-purple-100 p-2 rounded-lg mr-3">
-                                    <Building className="w-5 h-5 text-purple-600" />
-                                </div>
-                                <div>
-                                    <p className="text-sm text-gray-500">Departments</p>
-                                    <p className="text-xl font-bold text-gray-900">
-                                        {getUniqueDepartments().length}
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="bg-white p-4 rounded-lg border border-gray-200">
-                            <div className="flex items-center">
-                                <div className="bg-yellow-100 p-2 rounded-lg mr-3">
-                                    <Calendar className="w-5 h-5 text-yellow-600" />
-                                </div>
-                                <div>
-                                    <p className="text-sm text-gray-500">Recently Added</p>
-                                    <p className="text-xl font-bold text-gray-900">
-                                        {employees.data.filter(emp => {
-                                            const joiningDate = new Date(emp.created_at);
-                                            const weekAgo = new Date();
-                                            weekAgo.setDate(weekAgo.getDate() - 7);
-                                            return joiningDate > weekAgo;
-                                        }).length}
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </AdminLayout>
