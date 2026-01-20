@@ -63,4 +63,18 @@ class TrainingService
     {
         return $training->employees()->updateExistingPivot($employeeId, $statusData);
     }
+
+    public function getTrainingStats()
+    {
+        $now = now();
+
+        return [
+            'total' => Training::count(),
+            'upcoming' => Training::where('start_date', '>', $now)->count(),
+            'ongoing' => Training::where('start_date', '<=', $now)
+                ->where('end_date', '>=', $now)
+                ->count(),
+            'completed' => Training::where('end_date', '<', $now)->count(),
+        ];
+    }
 }

@@ -48,13 +48,13 @@ class EmployeeService
 
     }
 
-    public function createEmployee(array $data)
+    public function createEmployee($request)
     {
 //        if (isset($data['image'])) {
 //            $data['image'] = $this->uploadImage($data['image']);
 //        }
 
-        return $this->employee->create($data);
+        return $this->employee->create($request->all());
     }
 
     public function updateEmployee(Employee $employee, array $data)

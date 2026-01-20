@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreEmployeeRequest;
 use App\Models\Employee;
 use App\Models\Training;
 use App\Services\EmployeeService;
@@ -22,7 +23,6 @@ class EmployeeController extends Controller
 
     public function index(Request $request)
     {
-
         $pageTitle = "Employees/Staff Management";
         $employees = $this->employeeService->getAllEmployees($request);
         $departments = $this->employeeService->getDepartment();
@@ -43,20 +43,9 @@ class EmployeeController extends Controller
         ]);
     }
 
-    public function store(Request $request): RedirectResponse
+    public function store(StoreEmployeeRequest $request): RedirectResponse
     {
-        $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'id_number' => 'required|unique:employees',
-            'phone' => 'required|unique:employees',
-            'email' => 'nullable|email|unique:employees',
-            'designation' => 'required|string',
-            'department' => 'nullable|string',
-            'joining_date' => 'nullable|date',
-            'image' => 'nullable|image|max:2048'
-        ]);
-
-        $employee = $this->employeeService->createEmployee($validated);
+        $employee = $this->employeeService->createEmployee($request);
         if ($employee){
             return redirect()->route('admin.employees.index')->with('success', 'Employee updated successfully!');
         }

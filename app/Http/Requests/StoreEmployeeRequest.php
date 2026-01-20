@@ -11,7 +11,7 @@ class StoreEmployeeRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,26 @@ class StoreEmployeeRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'name' => 'required|string|max:255',
+            'id_number' => 'required|unique:employees',
+            'phone' => 'required|unique:employees',
+            'email' => 'nullable|email|unique:employees',
+            'designation' => 'required|string',
+            'department' => 'nullable|string',
+            'joining_date' => 'nullable|date',
+            'image' => 'nullable|image|max:2048'
+        ];
+    }
+
+    /**
+     * Get the error messages for the defined validation rules.
+     *
+     * @return array<string, string>
+     */
+    public function messages(): array
+    {
+        return [
+            'id_number.required' => 'The employee ID number field is required',
         ];
     }
 }
