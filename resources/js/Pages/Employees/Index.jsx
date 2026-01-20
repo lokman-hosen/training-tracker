@@ -37,10 +37,6 @@ export default function Index({ employees, departments, filters }) {
     const [showFilters, setShowFilters] = useState(false);
     const [expandedRow, setExpandedRow] = useState(null);
 
-    // Use a ref to prevent useEffect from running on initial render for filters/sort
-    const initialRender = useRef(true);
-
-
     // Debounced search
     useEffect(() => {
         const timer = setTimeout(() => {
@@ -51,10 +47,6 @@ export default function Index({ employees, departments, filters }) {
     }, [search, selectedDepartment, selectedStatus, sortField, sortDirection]);
 
     const updateFilters = () => {
-        if (initialRender.current) {
-            initialRender.current = false;
-            return;
-        }
         const params = {};
         if (search) params.search = search;
         if (selectedDepartment) params.department = selectedDepartment;
