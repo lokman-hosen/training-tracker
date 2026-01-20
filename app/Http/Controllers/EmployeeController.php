@@ -63,8 +63,10 @@ class EmployeeController extends Controller
         return redirect()->route('admin.employees.index')->with('error', 'Error to create employee');
     }
 
-    public function show(Employee $employee)
+    public function show(Employee $employee): Response
     {
+        $pageTitle = "Edit Employee/Staff";
+
         $employee->load(['trainings' => function ($query) {
             $query->withPivot('attended', 'completed', 'grade');
         }]);
@@ -73,7 +75,8 @@ class EmployeeController extends Controller
             $query->where('id_number', $employee->id);
         })->get();
 
-        return Inertia::render('Admin/Employees/Show', [
+        return Inertia::render('Employees/Show', [
+            'pageTitle' => $pageTitle,
             'employee' => $employee,
             'availableTrainings' => $availableTrainings
         ]);
