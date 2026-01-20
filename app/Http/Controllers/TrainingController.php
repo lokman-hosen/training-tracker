@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\Training;
 use App\Models\Employee;
+use App\Services\EmployeeService;
 use App\Services\TrainingService;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -13,7 +14,7 @@ use Inertia\Response;
 class TrainingController extends Controller
 {
 
-    public function __construct(public TrainingService $trainingService)
+    public function __construct(public TrainingService $trainingService, public EmployeeService $employeeService)
     {
         //
     }
@@ -31,9 +32,7 @@ class TrainingController extends Controller
 
     public function create(): Response
     {
-        $employees = Employee::select('id', 'name', 'id_number', 'department', 'designation', 'image')
-            ->get();
-
+        $employees = $this->employeeService->list();
         return Inertia::render('Trainings/Create', [
             'pageTitle' => 'Create New Training',
             'employees' => $employees

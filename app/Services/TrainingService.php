@@ -7,10 +7,12 @@ use App\Models\Employee;
 
 class TrainingService
 {
+    public function __construct(public Training $training){
+        //
+    }
     public function getAllTrainings($request)
     {
-        $query = Training::withCount('employees');
-
+        $query = $this->training->withCount('employees');
         // Search
         if ($request->has('search') && $request->search) {
             $search = $request->search;
