@@ -21,7 +21,9 @@ import {
     ArrowLeft,
     TrendingUp,
     Award,
-    BarChart3
+    BarChart3,
+    GraduationCap,
+    ChevronRight, User
 } from 'lucide-react';
 import Select from '@/Components/Forms/Select';
 import Input from '@/Components/Forms/Input';
@@ -29,21 +31,20 @@ import Input from '@/Components/Forms/Input';
 export default function Show({ training, availableEmployees }) {
     const [expandedEmployee, setExpandedEmployee] = useState(null);
     const [showAssignForm, setShowAssignForm] = useState(false);
+    const [selectedEmployees, setSelectedEmployees] = useState([]);
 
     const assignForm = useForm({
-        id_number: '',
+        employee_ids: [], // Changed from employee_id to employee_ids (array)
         attended: false,
         completed: false,
         grade: '',
         feedback: ''
     });
 
-    const updateStatusForm = useForm({
-        attended: false,
-        completed: false,
-        grade: '',
-        feedback: ''
-    });
+    // Update assignForm data when selectedEmployees changes
+    React.useEffect(() => {
+        assignForm.setData('employee_ids', selectedEmployees);
+    }, [selectedEmployees]);
 
     const getTrainingStatus = () => {
         const now = new Date();
@@ -55,25 +56,10 @@ export default function Show({ training, availableEmployees }) {
         return { status: 'completed', color: 'bg-gray-100 text-gray-800', label: 'Completed' };
     };
 
-    const getDuration = () => {
-        const start = new Date(training.start_date);
-        const end = new Date(training.end_date);
-        const diffMs = end - start;
-        const diffHours = Math.floor(diffMs / (1000 * 60 * 60));
-        const diffDays = Math.floor(diffHours / 24);
-        const remainingHours = diffHours % 24;
-
-        if (diffDays > 0) {
-            return `${diffDays} day${diffDays > 1 ? 's' : ''} ${remainingHours > 0 ? `and ${remainingHours} hour${remainingHours > 1 ? 's' : ''}` : ''}`;
-        }
-        return `${diffHours} hour${diffHours > 1 ? 's' : ''}`;
-    };
-
-    const formatDateRange = () => {
-        const start = new Date(training.start_date);
-        const end = new Date(training.end_date);
-
-        return `${start.toLocaleDateString()} ${start.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})} - ${end.toLocaleDateString()} ${end.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}`;
+    const updateEmployeeStatus = (employeeId, data) => {
+        router.put(route('admin.trainings.update-status', [training.id, employeeId]), data, {
+            preserveScroll: true
+        });
     };
 
     const assignEmployee = (e) => {
@@ -82,6 +68,7 @@ export default function Show({ training, availableEmployees }) {
             preserveScroll: true,
             onSuccess: () => {
                 assignForm.reset();
+                setSelectedEmployees([]);
                 setShowAssignForm(false);
             }
         });
@@ -95,10 +82,20 @@ export default function Show({ training, availableEmployees }) {
         }
     };
 
-    const updateEmployeeStatus = (employeeId, data) => {
-        updateStatusForm.put(route('admin.trainings.update-status', [training.id, employeeId]), data, {
-            preserveScroll: true
-        });
+    const toggleEmployeeSelection = (employeeId) => {
+        setSelectedEmployees(prev =>
+            prev.includes(employeeId)
+                ? prev.filter(id => id !== employeeId)
+                : [...prev, employeeId]
+        );
+    };
+
+    const selectAllAvailable = () => {
+        if (selectedEmployees.length === availableEmployees.length) {
+            setSelectedEmployees([]);
+        } else {
+            setSelectedEmployees(availableEmployees.map(emp => emp.id));
+        }
     };
 
     const getCompletionStats = () => {
@@ -113,7 +110,26 @@ export default function Show({ training, availableEmployees }) {
         return { total, attended, completed, avgGrade: avgGrade.toFixed(1) };
     };
 
-    const stats = getCompletionStats();
+    const formatDateRange = () => {
+        const start = new Date(training.start_date);
+        const end = new Date(training.end_date);
+
+        return `${start.toLocaleDateString()} ${start.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})} - ${end.toLocaleDateString()} ${end.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}`;
+    };
+
+    const getDuration = (start, end) => {
+        const startDate = new Date(start);
+        const endDate = new Date(end);
+        const diffMs = endDate - startDate;
+        const diffHours = Math.floor(diffMs / (1000 * 60 * 60));
+        const diffDays = Math.floor(diffHours / 24);
+        const remainingHours = diffHours % 24;
+
+        if (diffDays > 0) {
+            return `${diffDays}d ${remainingHours > 0 ? `${remainingHours}h` : ''}`;
+        }
+        return `${diffHours}h`;
+    };
 
     const gradeOptions = [
         { value: 'A+', label: 'A+ (Excellent)' },
@@ -125,6 +141,7 @@ export default function Show({ training, availableEmployees }) {
         { value: 'F', label: 'F (Failed)' }
     ];
 
+    const stats = getCompletionStats();
     const status = getTrainingStatus();
 
     return (
@@ -132,7 +149,7 @@ export default function Show({ training, availableEmployees }) {
             <Head title={`Training - ${training.name}`} />
 
             <div className="py-6">
-                <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                <div className="mx-auto sm:px-6 lg:px-8">
                     {/* Header Navigation */}
                     <div className="mb-6">
                         <Link
@@ -186,10 +203,10 @@ export default function Show({ training, availableEmployees }) {
                                         <Edit className="w-4 h-4 mr-2" />
                                         Edit
                                     </Link>
-                                    <button className="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700">
-                                        <Send className="w-4 h-4 mr-2" />
-                                        Send Reminders
-                                    </button>
+                                    {/*<button className="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700">*/}
+                                    {/*    <Send className="w-4 h-4 mr-2" />*/}
+                                    {/*    Send Reminders*/}
+                                    {/*</button>*/}
                                 </div>
                             </div>
                         </div>
@@ -258,42 +275,119 @@ export default function Show({ training, availableEmployees }) {
                                             <UserPlus className="w-4 h-4 mr-1" />
                                             Assign Employee
                                         </button>
-                                        <button className="inline-flex items-center px-3 py-1.5 border border-gray-300 text-sm font-medium rounded text-gray-700 bg-white hover:bg-gray-50">
-                                            <Download className="w-4 h-4 mr-1" />
-                                            Export List
-                                        </button>
+                                        {/*<button className="inline-flex items-center px-3 py-1.5 border border-gray-300 text-sm font-medium rounded text-gray-700 bg-white hover:bg-gray-50">*/}
+                                        {/*    <Download className="w-4 h-4 mr-1" />*/}
+                                        {/*    Export List*/}
+                                        {/*</button>*/}
                                     </div>
                                 </div>
 
                                 {/* Assign Employee Form */}
                                 {showAssignForm && availableEmployees.length > 0 && (
                                     <div className="p-6 border-b border-gray-200 bg-blue-50">
+                                        <div className="flex items-center justify-between mb-4">
+                                            <h4 className="font-medium text-gray-900">Assign Multiple Employees</h4>
+                                            <button
+                                                type="button"
+                                                onClick={selectAllAvailable}
+                                                className="text-sm text-blue-600 hover:text-blue-800"
+                                            >
+                                                {selectedEmployees.length === availableEmployees.length
+                                                    ? 'Deselect All'
+                                                    : 'Select All'
+                                                }
+                                            </button>
+                                        </div>
+
                                         <form onSubmit={assignEmployee} className="space-y-4">
-                                            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                                                <Select
-                                                    label="Select Employee"
-                                                    name="id_number"
-                                                    value={assignForm.data.id_number}
-                                                    onChange={(e) => assignForm.setData('id_number', e.target.value)}
-                                                    error={assignForm.errors.id_number}
-                                                    options={availableEmployees.map(emp => ({
-                                                        value: emp.id,
-                                                        label: `${emp.name} (${emp.id_number})`
-                                                    }))}
-                                                    placeholder="Choose an employee"
-                                                    className="md:col-span-2"
-                                                />
-                                                <div className="flex items-end">
+                                            {/* Multi-select employees */}
+                                            <div className="border border-gray-300 rounded-lg bg-white max-h-60 overflow-y-auto">
+                                                {availableEmployees.map((employee) => (
+                                                    <div
+                                                        key={employee.id}
+                                                        className={`flex items-center p-3 border-b border-gray-100 last:border-b-0 hover:bg-gray-50 cursor-pointer ${
+                                                            selectedEmployees.includes(employee.id) ? 'bg-blue-50' : ''
+                                                        }`}
+                                                        onClick={() => toggleEmployeeSelection(employee.id)}
+                                                    >
+                                                        <input
+                                                            type="checkbox"
+                                                            checked={selectedEmployees.includes(employee.id)}
+                                                            onChange={(e) => {
+                                                                e.stopPropagation();
+                                                                toggleEmployeeSelection(employee.id);
+                                                            }}
+                                                            className="h-4 w-4 text-blue-600 rounded border-gray-300 focus:ring-blue-500 mr-3"
+                                                        />
+                                                        <div className="flex items-center flex-1">
+                                                            <div className="flex-shrink-0 h-8 w-8 mr-3">
+                                                                {employee.image ? (
+                                                                    <img
+                                                                        className="h-8 w-8 rounded-full object-cover"
+                                                                        src={employee.image}
+                                                                        alt={employee.name}
+                                                                    />
+                                                                ) : (
+                                                                    <div className="h-8 w-8 rounded-full bg-gray-200 flex items-center justify-center">
+                                                                        <User className="w-5 h-5 text-gray-500" />
+                                                                    </div>
+                                                                )}
+                                                            </div>
+                                                            <div className="flex-1">
+                                                                <div className="text-sm font-medium text-gray-900">
+                                                                    {employee.name}
+                                                                </div>
+                                                                <div className="text-xs text-gray-500">
+                                                                    {employee.id_number} • {employee.department || 'No Department'}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                ))}
+                                            </div>
+
+                                            {assignForm.errors.employee_ids && (
+                                                <p className="text-sm text-red-600">{assignForm.errors.employee_ids}</p>
+                                            )}
+
+                                            {/* Action Buttons */}
+                                            <div className="flex items-center justify-between pt-4">
+                                                <div className="text-sm text-blue-700">
+                                                    {selectedEmployees.length} employee(s) selected
+                                                </div>
+                                                <div className="flex items-center space-x-3">
+                                                    <button
+                                                        type="button"
+                                                        onClick={() => {
+                                                            setShowAssignForm(false);
+                                                            setSelectedEmployees([]);
+                                                        }}
+                                                        className="px-4 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 bg-white hover:bg-gray-50"
+                                                    >
+                                                        Cancel
+                                                    </button>
                                                     <button
                                                         type="submit"
-                                                        disabled={assignForm.processing}
-                                                        className="w-full px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 disabled:opacity-50"
+                                                        disabled={assignForm.processing || selectedEmployees.length === 0}
+                                                        className="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 disabled:opacity-50 disabled:cursor-not-allowed"
                                                     >
-                                                        {assignForm.processing ? 'Assigning...' : 'Assign'}
+                                                        {assignForm.processing ? 'Assigning...' : 'Assign Selected'}
                                                     </button>
                                                 </div>
                                             </div>
                                         </form>
+                                    </div>
+                                )}
+
+                                {showAssignForm && availableEmployees.length === 0 && (
+                                    <div className="p-6 border-b border-gray-200 bg-blue-50">
+                                        <div className="text-center py-4">
+                                            <Users className="w-12 h-12 text-gray-400 mx-auto mb-3" />
+                                            <p className="text-gray-500">No employees available to assign</p>
+                                            <p className="text-sm text-gray-400 mt-1">
+                                                All employees are already assigned to this training
+                                            </p>
+                                        </div>
                                     </div>
                                 )}
 

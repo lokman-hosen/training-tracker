@@ -59,7 +59,7 @@ Route::middleware('auth')->group(function () {
         Route::resource('trainings', TrainingController::class);
         Route::post('/trainings/{training}/assign-employees', [TrainingController::class, 'assignEmployees'])
             ->name('trainings.assign-employees');
-        Route::post('/trainings/{training}/update-status/{employee}', [TrainingController::class, 'updateEmployeeStatus'])
+        Route::put('/trainings/{training}/update-status/{employee}', [TrainingController::class, 'updateEmployeeStatus'])
             ->name('trainings.update-status');
         Route::delete('/trainings/{training}/remove-employee/{employee}', [TrainingController::class, 'removeEmployee'])
             ->name('trainings.remove-employee');

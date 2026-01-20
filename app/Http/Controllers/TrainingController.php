@@ -7,6 +7,7 @@ use App\Models\Training;
 use App\Models\Employee;
 use App\Services\EmployeeService;
 use App\Services\TrainingService;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -39,7 +40,7 @@ class TrainingController extends Controller
         ]);
     }
 
-    public function store(Request $request)
+    public function store(Request $request): RedirectResponse
     {
         $validated = $request->validate([
             'name' => 'required|string|max:255',
@@ -66,7 +67,7 @@ class TrainingController extends Controller
             ->with('success', 'Training created successfully.');
     }
 
-    public function show(Training $training)
+    public function show(Training $training): Response
     {
         $training->load(['employees' => function ($query) {
             $query->select('employees.id', 'name', 'id_number', 'department', 'image', 'designation');
@@ -74,7 +75,7 @@ class TrainingController extends Controller
 
         $availableEmployees = Employee::whereDoesntHave('trainings', function ($query) use ($training) {
             $query->where('training_id', $training->id);
-        })->get(['id', 'name', 'id_number']);
+        })->get(['id', 'name', 'id_number','department']);
 
         return Inertia::render('Trainings/Show', [
             'training' => $training,
