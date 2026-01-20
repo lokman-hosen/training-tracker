@@ -12,11 +12,10 @@ use Inertia\Response;
 
 class TrainingController extends Controller
 {
-    protected $trainingService;
 
-    public function __construct(TrainingService $trainingService)
+    public function __construct(public TrainingService $trainingService)
     {
-        $this->trainingService = $trainingService;
+        //
     }
 
     public function index(Request $request): Response
@@ -32,7 +31,7 @@ class TrainingController extends Controller
 
     public function create(): Response
     {
-        $employees = Employee::select('id', 'name', 'id_number', 'department', 'image')
+        $employees = Employee::select('id', 'name', 'id_number', 'department', 'designation', 'image')
             ->get();
 
         return Inertia::render('Trainings/Create', [
