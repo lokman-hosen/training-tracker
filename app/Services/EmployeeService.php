@@ -15,7 +15,13 @@ class EmployeeService
 //        $query = $this->employee->withCount(['trainings' => function ($query) {
 //            $query->where('completed', false);
 //        }]);
-        $query = $this->employee->query();
+        $query = $this->employee->withCount([
+            'trainings', // Total trainings count
+            'trainings as completed_trainings_count' => function ($query) {
+                $query->where('completed', true); // Only completed trainings
+            }
+        ]);
+        //$query = $this->employee->withCount('trainings');
 
         // Search
         if ($request->has('search') && $request->search) {

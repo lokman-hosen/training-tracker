@@ -21,7 +21,7 @@ class EmployeeController extends Controller
         $this->employeeService = $employeeService;
     }
 
-    public function index(Request $request)
+    public function index(Request $request): Response
     {
         $pageTitle = "Employees/Staff Management";
         $employees = $this->employeeService->getAllEmployees($request);

@@ -455,7 +455,7 @@ export default function Index({ pageTitle, employees, departments, filters }) {
                                                             </div>
                                                             {employee.trainings_count > 0 && (
                                                                 <div className="text-xs text-gray-500">
-                                                                    {employee.completed_trainings || 0} completed
+                                                                    {employee.completed_trainings_count || 0} completed
                                                                 </div>
                                                             )}
                                                         </div>
@@ -559,12 +559,12 @@ export default function Index({ pageTitle, employees, departments, filters }) {
                                                                     </div>
                                                                     <div className="flex">
                                                                         <span className="text-gray-500 w-32">Completed:</span>
-                                                                        <span className="text-gray-900">{employee.completed_trainings || 0}</span>
+                                                                        <span className="text-gray-900">{employee.completed_trainings_count || 0}</span>
                                                                     </div>
                                                                     <div className="flex">
                                                                         <span className="text-gray-500 w-32">In Progress:</span>
                                                                         <span className="text-gray-900">
-                                                                                {(employee.trainings_count || 0) - (employee.completed_trainings || 0)}
+                                                                                {(employee.trainings_count || 0) - (employee.completed_trainings_count || 0)}
                                                                             </span>
                                                                     </div>
                                                                     <div className="mt-3">
