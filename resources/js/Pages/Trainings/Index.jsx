@@ -19,7 +19,8 @@ import {
     X,
     CheckCircle,
     AlertCircle,
-    PlayCircle
+    PlayCircle,
+    GraduationCap
 } from 'lucide-react';
 import Input from '@/Components/Forms/Input';
 import Select from '@/Components/Forms/Select';
@@ -29,7 +30,7 @@ export default function Index({ trainings, filters }) {
     const [search, setSearch] = useState(filters.search || '');
     const [statusFilter, setStatusFilter] = useState(filters.status || '');
     const [dateFilter, setDateFilter] = useState(filters.date || '');
-    const [sortField, setSortField] = useState(filters.sort || 'start_date');
+    const [sortField, setSortField] = useState(filters.short || 'start_date');
     const [sortDirection, setSortDirection] = useState(filters.direction || 'asc');
     const [showFilters, setShowFilters] = useState(false);
     const [expandedRow, setExpandedRow] = useState(null);
@@ -179,7 +180,7 @@ export default function Index({ trainings, filters }) {
             <Head title="Trainings Management" />
 
             <div className="py-6">
-                <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                <div className="mx-auto sm:px-6 lg:px-8">
                     {/* Header Section */}
                     <div className="mb-6">
                         <div className="flex flex-col md:flex-row md:items-center justify-between">

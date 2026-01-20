@@ -8,6 +8,7 @@ use App\Models\Employee;
 use App\Services\TrainingService;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use Inertia\Response;
 
 class TrainingController extends Controller
 {
@@ -18,93 +19,24 @@ class TrainingController extends Controller
         $this->trainingService = $trainingService;
     }
 
-    public function index(Request $request)
+    public function index(Request $request): Response
     {
-        $query = Training::withCount('employees');
+        $pageTitle = "Training Programs";
+        $trainings = $this->trainingService->getAllTrainings($request);
 
-        // Search
-        if ($request->has('search') && $request->search) {
-            $search = $request->search;
-            $query->where(function ($q) use ($search) {
-                $q->where('name', 'like', "%{$search}%")
-                    ->orWhere('topic', 'like', "%{$search}%")
-                    ->orWhere('trainer_name', 'like', "%{$search}%")
-                    ->orWhere('location', 'like', "%{$search}%");
-            });
-        }
-
-        // Status filter
-        if ($request->has('status') && $request->status) {
-            $now = now();
-            switch ($request->status) {
-                case 'upcoming':
-                    $query->where('start_date', '>', $now);
-                    break;
-                case 'ongoing':
-                    $query->where('start_date', '<=', $now)
-                        ->where('end_date', '>=', $now);
-                    break;
-                case 'completed':
-                    $query->where('end_date', '<', $now);
-                    break;
-            }
-        }
-
-        // Date filter
-        if ($request->has('date') && $request->date) {
-            $now = now();
-            switch ($request->date) {
-                case 'today':
-                    $query->whereDate('start_date', $now);
-                    break;
-                case 'this_week':
-                    $query->whereBetween('start_date', [
-                        $now->startOfWeek(),
-                        $now->endOfWeek()
-                    ]);
-                    break;
-                case 'next_week':
-                    $query->whereBetween('start_date', [
-                        $now->addWeek()->startOfWeek(),
-                        $now->addWeek()->endOfWeek()
-                    ]);
-                    break;
-                case 'this_month':
-                    $query->whereMonth('start_date', $now->month)
-                        ->whereYear('start_date', $now->year);
-                    break;
-                case 'next_month':
-                    $query->whereMonth('start_date', $now->addMonth()->month)
-                        ->whereYear('start_date', $now->year);
-                    break;
-            }
-        }
-
-        // Sorting
-        $sortField = $request->get('sort', 'start_date');
-        $sortDirection = $request->get('direction', 'asc');
-
-        if (in_array($sortField, ['name', 'start_date', 'end_date', 'employees_count'])) {
-            $query->orderBy($sortField, $sortDirection);
-        } else {
-            $query->orderBy('start_date', 'asc');
-        }
-
-        $trainings = $query->paginate($request->perPage ?? 10)
-            ->withQueryString();
-
-        return Inertia::render('Admin/Trainings/Index', [
+        return Inertia::render('Trainings/Index', [
+            'pageTitle' => $pageTitle,
             'trainings' => $trainings,
-            'filters' => $request->only(['search', 'status', 'date', 'sort', 'direction', 'perPage'])
+            'filters' => $request->only(['search', 'status', 'date', 'short', 'direction', 'perPage'])
         ]);
     }
 
-    public function create()
+    public function create(): Response
     {
         $employees = Employee::select('id', 'name', 'employee_id', 'department', 'image')
             ->get();
 
-        return Inertia::render('Admin/Trainings/Create', [
+        return Inertia::render('Trainings/Create', [
             'employees' => $employees
         ]);
     }
@@ -146,7 +78,7 @@ class TrainingController extends Controller
             $query->where('training_id', $training->id);
         })->get(['id', 'name', 'employee_id']);
 
-        return Inertia::render('Admin/Trainings/Show', [
+        return Inertia::render('Trainings/Show', [
             'training' => $training,
             'availableEmployees' => $availableEmployees
         ]);
@@ -159,7 +91,7 @@ class TrainingController extends Controller
         $employees = Employee::select('id', 'name', 'employee_id', 'department', 'image')
             ->get();
 
-        return Inertia::render('Admin/Trainings/Edit', [
+        return Inertia::render('Trainings/Edit', [
             'training' => $training,
             'employees' => $employees
         ]);

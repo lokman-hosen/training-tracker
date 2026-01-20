@@ -1,7 +1,8 @@
 import React from 'react';
 import { Head } from '@inertiajs/react';
 import AdminLayout from '@/Layouts/AdminLayout';
-import TrainingForm from '@/Components/Forms/TrainingForm';
+import Form from "@/Pages/Trainings/Form.jsx";
+
 
 export default function Create({ employees }) {
     return (
@@ -20,8 +21,7 @@ export default function Create({ employees }) {
                                     </p>
                                 </div>
                             </div>
-
-                            <TrainingForm />
+                            <Form />
                         </div>
                     </div>
                 </div>

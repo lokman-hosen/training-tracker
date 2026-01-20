@@ -19,7 +19,8 @@ import {
     GraduationCap,
     ChevronDown,
     ChevronUp,
-    X
+    X,
+    ArrowRight
 } from 'lucide-react';
 import Input from '@/Components/Forms/Input';
 import Select from '@/Components/Forms/Select';
