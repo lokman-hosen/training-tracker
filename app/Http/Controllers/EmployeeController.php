@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Employee;
 use App\Models\Training;
 use App\Services\EmployeeService;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -42,7 +43,7 @@ class EmployeeController extends Controller
         ]);
     }
 
-    public function store(Request $request)
+    public function store(Request $request): RedirectResponse
     {
         $validated = $request->validate([
             'name' => 'required|string|max:255',
@@ -80,7 +81,9 @@ class EmployeeController extends Controller
 
     public function edit(Employee $employee)
     {
-        return Inertia::render('Admin/Employees/Edit', [
+        $pageTitle = "Edit Employee/Staff";
+        return Inertia::render('Employees/Edit', [
+            'pageTitle' => $pageTitle,
             'employee' => $employee
         ]);
     }
@@ -105,11 +108,13 @@ class EmployeeController extends Controller
         return redirect()->route('admin.employees.index')->with('error', 'Error to create employee');
     }
 
-    public function destroy(Employee $employee)
+    public function destroy(Employee $employee): RedirectResponse
     {
-        $this->employeeService->deleteEmployee($employee);
-
-        return back()->with('success', 'Employee deleted successfully.');
+        $employee = $this->employeeService->deleteEmployee($employee);
+        if ($employee){
+            return redirect()->route('admin.employees.index')->with('success', 'Employee deleted successfully!');
+        }
+        return redirect()->route('admin.employees.index')->with('error', 'Error to delete employee');
     }
 
     public function assignTraining(Request $request, Employee $employee)

@@ -21,8 +21,8 @@ return new class extends Migration
             $table->string('designation');
             $table->string('department')->nullable();
             $table->date('joining_date')->nullable();
-            $table->softDeletes();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
