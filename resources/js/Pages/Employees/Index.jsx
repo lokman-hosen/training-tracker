@@ -24,8 +24,7 @@ import {
 import Input from '@/Components/Forms/Input';
 import Select from '@/Components/Forms/Select';
 
-export default function Index({ employees, departments, filters }) {
-    console.log(employees);
+export default function Index({ pageTitle, employees, departments, filters }) {
     const safeFilters = filters || [];
     const { auth } = usePage().props;
     const [search, setSearch] = useState(safeFilters?.search || '');
@@ -142,7 +141,7 @@ export default function Index({ employees, departments, filters }) {
 
     return (
         <AdminLayout>
-            <Head title="Employees/Staff Management" />
+            <Head title={pageTitle}/>
 
             <div className="py-6">
                 <div className="mx-auto sm:px-6 lg:px-8">

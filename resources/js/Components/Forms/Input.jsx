@@ -1,4 +1,3 @@
-// resources/js/Components/Forms/Input.jsx
 import React from 'react';
 
 export default function Input({

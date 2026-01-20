@@ -12,6 +12,7 @@ import {
     LogOut,
     Settings
 } from 'lucide-react';
+import Toast from "@/Components/Toast.jsx";
 
 export default function AdminLayout({ children, title }) {
     const { auth } = usePage().props;
@@ -200,6 +201,7 @@ export default function AdminLayout({ children, title }) {
                 {/* Page content */}
                 <main className="flex-1">
                     {children}
+                    <Toast />
                 </main>
             </div>
         </div>

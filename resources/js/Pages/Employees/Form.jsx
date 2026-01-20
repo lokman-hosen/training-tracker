@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { useForm } from '@inertiajs/react';
-import Input from '.@/Components/Forms/Input';
 import FileUpload from '@/Components/Forms/FileUpload';
 import DatePicker from "@/Components/Forms/DatePicker.jsx";
+import Input from "@/Components/Forms/Input.jsx";
 
-export default function EmployeeForm({ employee = null }) {
+export default function Form({ employee = null }) {
     const { data, setData, post, put, errors, processing } = useForm({
         name: employee?.name || '',
-        employee_id: employee?.employee_id || '',
+        id_number: employee?.id_number || '',
         phone: employee?.phone || '',
         email: employee?.email || '',
         designation: employee?.designation || '',
@@ -52,10 +52,10 @@ export default function EmployeeForm({ employee = null }) {
                     {/* Employee ID */}
                     <Input
                         label="Employee ID"
-                        name="employee_id"
-                        value={data.employee_id}
-                        onChange={(e) => setData('employee_id', e.target.value)}
-                        error={errors.employee_id}
+                        name="id_number"
+                        value={data.id_number}
+                        onChange={(e) => setData('id_number', e.target.value)}
+                        error={errors.id_number}
                         required
                         placeholder="Enter employee ID"
                     />
@@ -127,15 +127,15 @@ export default function EmployeeForm({ employee = null }) {
             </div>
 
             {/* Profile Image Section */}
-            <div className="bg-white shadow rounded-lg p-6">
-                <h3 className="text-lg font-medium text-gray-900 mb-6">Employee Photo</h3>
-                <FileUpload
-                    preview={previewImage}
-                    onChange={handleImageChange}
-                    onRemove={removeImage}
-                    error={errors.image}
-                />
-            </div>
+            {/*<div className="bg-white shadow rounded-lg p-6">*/}
+            {/*    <h3 className="text-lg font-medium text-gray-900 mb-6">Employee Photo</h3>*/}
+            {/*    <FileUpload*/}
+            {/*        preview={previewImage}*/}
+            {/*        onChange={handleImageChange}*/}
+            {/*        onRemove={removeImage}*/}
+            {/*        error={errors.image}*/}
+            {/*    />*/}
+            {/*</div>*/}
 
             {/* Form Actions */}
             <div className="flex justify-end space-x-3">
