@@ -1,6 +1,5 @@
-// resources/js/Layouts/AuthenticatedLayout.jsx
 import React, { useState } from 'react';
-import { Head, Link } from '@inertiajs/react';
+import { Head, Link, usePage } from '@inertiajs/react';
 import ApplicationLogo from '@/Components/ApplicationLogo';
 import Dropdown from '@/Components/Dropdown';
 import NavLink from '@/Components/NavLink';
@@ -18,6 +17,7 @@ import {
 } from 'lucide-react';
 
 export default function AuthenticatedLayout({ header, children }) {
+    const auth = usePage().props.auth;
     const [showingNavigationDropdown, setShowingNavigationDropdown] = useState(false);
     const [sidebarOpen, setSidebarOpen] = useState(false);
 
