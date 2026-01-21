@@ -85,9 +85,9 @@ class TrainingController extends Controller
 
     public function edit(Training $training)
     {
-        $training->load('employees:id,name,id_number,department,image');
+        $training->load('employees:id,name,id_number,department,image,designation');
 
-        $employees = Employee::select('id', 'name', 'id_number', 'department', 'image')
+        $employees = Employee::select('id', 'name', 'id_number', 'department', 'image', 'designation')
             ->get();
 
         return Inertia::render('Trainings/Edit', [

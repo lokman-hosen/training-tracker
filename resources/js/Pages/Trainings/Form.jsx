@@ -11,12 +11,36 @@ export default function TrainingForm({ training = null }) {
     const [selectedEmployees, setSelectedEmployees] = useState(training?.employees?.map(e => e.id) || []);
     const [endDateError, setEndDateError] = useState('');
 
+    // Format date for datetime-local input
+    const formatDateForInput = (dateString) => {
+        if (!dateString) return '';
+
+        try {
+            const date = new Date(dateString);
+
+            // Check if date is valid
+            if (isNaN(date.getTime())) return '';
+
+            // Format to YYYY-MM-DDTHH:mm
+            const year = date.getFullYear();
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const day = String(date.getDate()).padStart(2, '0');
+            const hours = String(date.getHours()).padStart(2, '0');
+            const minutes = String(date.getMinutes()).padStart(2, '0');
+
+            return `${year}-${month}-${day}T${hours}:${minutes}`;
+        } catch (error) {
+            console.error('Date formatting error:', error);
+            return '';
+        }
+    };
+
     const { data, setData, post, put, errors, processing } = useForm({
         name: training?.name || '',
         topic: training?.topic || '',
         location: training?.location || '',
-        start_date: training?.start_date || '',
-        end_date: training?.end_date || '',
+        start_date: formatDateForInput(training?.start_date) || '',
+        end_date: formatDateForInput(training?.end_date) || '',
         trainer_name: training?.trainer_name || '',
         trainer_email: training?.trainer_email || '',
         trainer_phone: training?.trainer_phone || '',
