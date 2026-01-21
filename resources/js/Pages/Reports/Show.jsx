@@ -69,7 +69,7 @@ export default function Show({ employee, totalHours }) {
             <Head title={`Report - ${employee.name}`} />
 
             <div className="py-6">
-                <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                <div className="mx-auto sm:px-6 lg:px-8">
                     {/* Header */}
                     <div className="mb-6">
                         <Link
@@ -191,7 +191,7 @@ export default function Show({ employee, totalHours }) {
                                 </div>
                                 <div>
                                     <p className="text-sm text-gray-500">Total Hours</p>
-                                    <p className="text-xl font-bold text-gray-900">{totalHours.toFixed(1)}</p>
+                                    {/*<p className="text-xl font-bold text-gray-900">{totalHours.toFixed(1)}</p>*/}
                                 </div>
                             </div>
                         </div>
@@ -255,7 +255,7 @@ export default function Show({ employee, totalHours }) {
                                                     </div>
                                                 </td>
                                                 <td className="px-6 py-4 text-sm text-gray-900 text-center">
-                                                    {training.training_hours.toFixed(1)} hrs
+                                                    {/*{training.training_hours.toFixed(1)} hrs*/}
                                                 </td>
                                                 <td className="px-6 py-4">
                                                     {getStatusBadge(training.pivot.attended, training.pivot.completed)}
@@ -280,7 +280,7 @@ export default function Show({ employee, totalHours }) {
                                             </td>
                                             <td className="px-6 py-4 text-center">
                                                 <div className="text-lg font-bold text-blue-700">
-                                                    {totalHours.toFixed(1)} hrs
+                                                    {/*{totalHours.toFixed(1)} hrs*/}
                                                 </div>
                                             </td>
                                             <td className="px-6 py-4 text-center">
