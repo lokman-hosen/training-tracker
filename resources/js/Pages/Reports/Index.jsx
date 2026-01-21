@@ -64,13 +64,13 @@ export default function Index({ employees, allEmployees, allTrainings, filters }
 
         if (selectedEmployees.length > 0) {
             selectedEmployees.forEach(emp => {
-                params.append('employee_ids[]', emp.id);
+                params.append('employee_ids[]', emp.value);
             });
         }
 
         if (selectedTrainings.length > 0) {
             selectedTrainings.forEach(train => {
-                params.append('training_ids[]', train.id);
+                params.append('training_ids[]', train.value);
             });
         }
 

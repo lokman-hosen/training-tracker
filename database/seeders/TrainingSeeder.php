@@ -19,7 +19,7 @@ class TrainingSeeder extends Seeder
                 'topic' => 'Advanced Leadership Skills',
                 'location' => 'Main Conference Hall, Building A, Government Office Complex',
                 'start_date' => Carbon::now()->addDays(7)->setTime(9, 0),
-                'end_date' => Carbon::now()->addDays(10)->setTime(17, 0),
+                'end_date' => Carbon::now()->addDays(7)->setTime(12, 0),
                 'trainer_name' => 'Dr. Sarah Johnson',
                 'trainer_email' => 'sarah.johnson@training.gov',
                 'trainer_phone' => '+8801712345678',
