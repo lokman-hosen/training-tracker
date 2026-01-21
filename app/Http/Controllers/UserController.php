@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Services\UserService;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use Inertia\Response;
 
 class UserController extends Controller
 {
@@ -27,9 +28,11 @@ class UserController extends Controller
         ]);
     }
 
-    public function create()
+    public function create(): Response
     {
-        return Inertia::render('Users/Create');
+        return Inertia::render('Users/Create',[
+            'pageTitle' => "Users Management",
+        ]);
     }
 
     public function store(Request $request)
@@ -41,8 +44,6 @@ class UserController extends Controller
             'password' => 'required|min:8',
             'role' => 'required|in:super-admin,admin,employee',
             'image' => 'nullable|image|max:2048',
-            'department' => 'nullable|string',
-            'joining_date' => 'nullable|date'
         ]);
 
         $this->userService->createUser($validated);

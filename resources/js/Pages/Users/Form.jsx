@@ -1,7 +1,9 @@
 // resources/js/Components/Forms/UserForm.jsx
 import React, { useState } from 'react';
 import { useForm } from '@inertiajs/react';
-import { Upload, X } from 'lucide-react';
+import Input from '@/Components/Forms/Input.jsx';
+import Select from '@/Components/Forms/Select';
+import FileUpload from '@/Components/Forms/FileUpload';
 
 export default function UserForm({ user = null }) {
     const { data, setData, post, put, errors, processing } = useForm({
@@ -10,9 +12,7 @@ export default function UserForm({ user = null }) {
         phone: user?.phone || '',
         password: '',
         password_confirmation: '',
-        role: user?.role || 'employee',
-        department: user?.department || '',
-        joining_date: user?.joining_date || '',
+        role: user?.role || 'admin',
         image: null,
     });
 
@@ -28,16 +28,13 @@ export default function UserForm({ user = null }) {
         }
     };
 
-    const handleImageChange = (e) => {
-        const file = e.target.files[0];
-        if (file) {
-            setData('image', file);
-            const reader = new FileReader();
-            reader.onloadend = () => {
-                setPreviewImage(reader.result);
-            };
-            reader.readAsDataURL(file);
-        }
+    const handleImageChange = (file) => {
+        setData('image', file);
+        const reader = new FileReader();
+        reader.onloadend = () => {
+            setPreviewImage(reader.result);
+        };
+        reader.readAsDataURL(file);
     };
 
     const removeImage = () => {
@@ -45,168 +42,132 @@ export default function UserForm({ user = null }) {
         setPreviewImage(null);
     };
 
+    const roleOptions = [
+        // { value: 'employee', label: 'Employee' },
+        { value: 'admin', label: 'Admin' }
+        // { value: 'super-admin', label: 'Super Admin' }
+    ];
+
     return (
         <form onSubmit={handleSubmit} className="space-y-6">
-            {/* Image Upload */}
-            <div className="flex items-center space-x-6">
-                <div className="shrink-0">
-                    {previewImage ? (
-                        <div className="relative">
-                            <img
-                                className="h-32 w-32 object-cover rounded-full"
-                                src={previewImage}
-                                alt="Preview"
-                            />
-                            <button
-                                type="button"
-                                onClick={removeImage}
-                                className="absolute -top-2 -right-2 bg-red-600 text-white rounded-full p-1 hover:bg-red-700"
-                            >
-                                <X className="w-4 h-4" />
-                            </button>
-                        </div>
-                    ) : (
-                        <label className="cursor-pointer">
-                            <div className="h-32 w-32 rounded-full border-2 border-dashed border-gray-300 flex flex-col items-center justify-center hover:border-gray-400">
-                                <Upload className="w-8 h-8 text-gray-400" />
-                                <span className="mt-2 text-sm text-gray-500">Upload Photo</span>
-                            </div>
-                            <input
-                                type="file"
-                                className="hidden"
-                                accept="image/*"
-                                onChange={handleImageChange}
-                            />
-                        </label>
-                    )}
-                </div>
-                <div className="text-sm text-gray-500">
-                    Upload a profile picture. Max size 2MB.
-                </div>
-            </div>
+            {/* Profile Image Upload */}
+            <FileUpload
+                label="Profile Picture"
+                name="image"
+                preview={previewImage}
+                onChange={handleImageChange}
+                onRemove={removeImage}
+                error={errors.image}
+                accept="image/*"
+                description="Upload a profile picture. Max size 2MB."
+                className="max-w-lg"
+            />
 
-            {/* Form Fields */}
+            {/* Personal Information */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {/* Name */}
-                <div>
-                    <label className="block text-sm font-medium text-gray-700">Full Name *</label>
-                    <input
-                        type="text"
-                        value={data.name}
-                        onChange={(e) => setData('name', e.target.value)}
-                        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
-                        required
-                    />
-                    {errors.name && (
-                        <p className="mt-1 text-sm text-red-600">{errors.name}</p>
-                    )}
-                </div>
+                <Input
+                    label="Full Name"
+                    name="name"
+                    value={data.name}
+                    onChange={(e) => setData('name', e.target.value)}
+                    error={errors.name}
+                    required
+                    placeholder="Enter full name"
+                />
 
                 {/* Email */}
-                <div>
-                    <label className="block text-sm font-medium text-gray-700">Email Address *</label>
-                    <input
-                        type="email"
-                        value={data.email}
-                        onChange={(e) => setData('email', e.target.value)}
-                        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
-                        required
-                    />
-                    {errors.email && (
-                        <p className="mt-1 text-sm text-red-600">{errors.email}</p>
-                    )}
-                </div>
+                <Input
+                    label="Email Address"
+                    type="email"
+                    name="email"
+                    value={data.email}
+                    onChange={(e) => setData('email', e.target.value)}
+                    error={errors.email}
+                    required
+                    placeholder="Enter email address"
+                />
 
                 {/* Phone */}
-                <div>
-                    <label className="block text-sm font-medium text-gray-700">Phone Number *</label>
-                    <input
-                        type="tel"
-                        value={data.phone}
-                        onChange={(e) => setData('phone', e.target.value)}
-                        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
-                        required
-                    />
-                    {errors.phone && (
-                        <p className="mt-1 text-sm text-red-600">{errors.phone}</p>
-                    )}
-                </div>
+                <Input
+                    label="Phone Number"
+                    type="tel"
+                    name="phone"
+                    value={data.phone}
+                    onChange={(e) => setData('phone', e.target.value)}
+                    error={errors.phone}
+                    required
+                    placeholder="Enter phone number"
+                />
 
                 {/* Role */}
-                <div>
-                    <label className="block text-sm font-medium text-gray-700">Role *</label>
-                    <select
-                        value={data.role}
-                        onChange={(e) => setData('role', e.target.value)}
-                        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
-                        required
-                    >
-                        <option value="employee">Employee</option>
-                        <option value="admin">Admin</option>
-                        <option value="super-admin">Super Admin</option>
-                    </select>
-                    {errors.role && (
-                        <p className="mt-1 text-sm text-red-600">{errors.role}</p>
-                    )}
-                </div>
-
-                {/* Password - only for create or when changing */}
-                {!user && (
-                    <>
-                        <div>
-                            <label className="block text-sm font-medium text-gray-700">Password *</label>
-                            <input
-                                type="password"
-                                value={data.password}
-                                onChange={(e) => setData('password', e.target.value)}
-                                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
-                                required={!user}
-                            />
-                            {errors.password && (
-                                <p className="mt-1 text-sm text-red-600">{errors.password}</p>
-                            )}
-                        </div>
-
-                        <div>
-                            <label className="block text-sm font-medium text-gray-700">
-                                Confirm Password *
-                            </label>
-                            <input
-                                type="password"
-                                value={data.password_confirmation}
-                                onChange={(e) => setData('password_confirmation', e.target.value)}
-                                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
-                                required={!user}
-                            />
-                        </div>
-                    </>
-                )}
-
-                {/* Department */}
-                <div>
-                    <label className="block text-sm font-medium text-gray-700">Department</label>
-                    <input
-                        type="text"
-                        value={data.department}
-                        onChange={(e) => setData('department', e.target.value)}
-                        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
-                    />
-                </div>
-
-                {/* Joining Date */}
-                <div>
-                    <label className="block text-sm font-medium text-gray-700">Joining Date</label>
-                    <input
-                        type="date"
-                        value={data.joining_date}
-                        onChange={(e) => setData('joining_date', e.target.value)}
-                        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
-                    />
-                </div>
+                <Select
+                    label="Role"
+                    name="role"
+                    value={data.role}
+                    onChange={(e) => setData('role', e.target.value)}
+                    error={errors.role}
+                    required
+                    options={roleOptions}
+                    placeholder="Select role"
+                />
             </div>
 
-            {/* Submit Button */}
-            <div className="flex justify-end space-x-3">
+            {/* Password Fields */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {!user ? (
+                    <>
+                        {/* Create User - Both password fields required */}
+                        <Input
+                            label="Password"
+                            type="password"
+                            name="password"
+                            value={data.password}
+                            onChange={(e) => setData('password', e.target.value)}
+                            error={errors.password}
+                            required
+                            placeholder="Enter password"
+                        />
+
+                        <Input
+                            label="Confirm Password"
+                            type="password"
+                            name="password_confirmation"
+                            value={data.password_confirmation}
+                            onChange={(e) => setData('password_confirmation', e.target.value)}
+                            error={errors.password_confirmation}
+                            required
+                            placeholder="Confirm password"
+                        />
+                    </>
+                ) : (
+                    <>
+                        {/* Edit User - Optional password fields */}
+                        <Input
+                            label="New Password (Optional)"
+                            type="password"
+                            name="password"
+                            value={data.password}
+                            onChange={(e) => setData('password', e.target.value)}
+                            error={errors.password}
+                            placeholder="Leave blank to keep current"
+                        />
+
+                        <Input
+                            label="Confirm New Password"
+                            type="password"
+                            name="password_confirmation"
+                            value={data.password_confirmation}
+                            onChange={(e) => setData('password_confirmation', e.target.value)}
+                            error={errors.password_confirmation}
+                            placeholder="Confirm new password"
+                        />
+                    </>
+                )}
+            </div>
+
+            {/* Form Actions */}
+            <div className="flex justify-end space-x-3 pt-4 border-t">
                 <a
                     href={route('admin.users.index')}
                     className="px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"

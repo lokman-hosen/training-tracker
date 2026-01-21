@@ -16,7 +16,6 @@ export default function Index({ pageTitle, users, filters }) {
     const safeFilters = filters || [];
     const [search, setSearch] = useState(safeFilters?.search || '');
 
-
     // Debounced search
     useEffect(() => {
         const timer = setTimeout(() => {
@@ -111,7 +110,7 @@ export default function Index({ pageTitle, users, filters }) {
                                                         {user.image ? (
                                                             <img
                                                                 className="h-10 w-10 rounded-full"
-                                                                src={user.image}
+                                                                src={`/storage/${user.image}`}
                                                                 alt={user.name}
                                                             />
                                                         ) : (
