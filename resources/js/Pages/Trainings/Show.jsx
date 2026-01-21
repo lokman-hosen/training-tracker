@@ -126,8 +126,6 @@ export default function Show({ training, availableEmployees }) {
         const diffHours = Math.floor(diffMs / (1000 * 60 * 60));
         const diffDays = Math.floor(diffHours / 24);
         const remainingHours = diffHours % 24;
-        console.log(diffDays)
-
         if (diffDays > 0) {
             return `${diffDays}d ${remainingHours > 0 ? `${remainingHours}h` : ''}`;
         }

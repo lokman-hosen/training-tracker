@@ -64,6 +64,20 @@ export default function Show({ employee, totalHours }) {
             employee.trainings.filter(t => t.pivot.grade).length || 0
     };
 
+    const getDuration = (start, end) => {
+        console.log(start, end)
+        const startDate = new Date(start);
+        const endDate = new Date(end);
+        const diffMs = endDate - startDate;
+        const diffHours = Math.floor(diffMs / (1000 * 60 * 60));
+        const diffDays = Math.floor(diffHours / 24);
+        const remainingHours = diffHours % 24;
+        if (diffDays > 0) {
+            return `${diffDays}d ${remainingHours > 0 ? `${remainingHours}h` : ''}`;
+        }
+        return `${diffHours}h`;
+    };
+
     return (
         <AdminLayout>
             <Head title={`Report - ${employee.name}`} />
@@ -191,7 +205,7 @@ export default function Show({ employee, totalHours }) {
                                 </div>
                                 <div>
                                     <p className="text-sm text-gray-500">Total Hours</p>
-                                    {/*<p className="text-xl font-bold text-gray-900">{totalHours.toFixed(1)}</p>*/}
+                                    <p className="text-xl font-bold text-gray-900">{totalHours.toFixed(1)}</p>
                                 </div>
                             </div>
                         </div>
@@ -255,6 +269,8 @@ export default function Show({ employee, totalHours }) {
                                                     </div>
                                                 </td>
                                                 <td className="px-6 py-4 text-sm text-gray-900 text-center">
+                                                    {getDuration(training.start_date, training.end_date)}
+                                                    {training.training_hours}
                                                     {/*{training.training_hours.toFixed(1)} hrs*/}
                                                 </td>
                                                 <td className="px-6 py-4">
@@ -280,7 +296,7 @@ export default function Show({ employee, totalHours }) {
                                             </td>
                                             <td className="px-6 py-4 text-center">
                                                 <div className="text-lg font-bold text-blue-700">
-                                                    {/*{totalHours.toFixed(1)} hrs*/}
+                                                    {totalHours.toFixed(1)} hrs
                                                 </div>
                                             </td>
                                             <td className="px-6 py-4 text-center">

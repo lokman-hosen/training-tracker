@@ -28,8 +28,6 @@ export default function Show({ pageTitle, employee, availableTrainings }) {
 
     const [expandedTraining, setExpandedTraining] = useState(null);
 
-    console.log(employee)
-
     const assignTraining = (e) => {
         e.preventDefault();
         post(route('admin.employees.assign-training', employee.id), {
