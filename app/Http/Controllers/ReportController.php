@@ -15,7 +15,6 @@ class ReportController extends Controller
     // Show employee training report list
     public function index(Request $request)
     {
-        //dd($request->all());
         $query = Employee::withCount([
             'trainings as total_trainings_count',
             'trainings as completed_trainings_count' => function ($query) {
@@ -89,7 +88,7 @@ class ReportController extends Controller
 
         return Inertia::render('Reports/Show', [
             'employee' => $employee,
-            'totalHours' => $totalHours
+            'totalHours' => abs($totalHours)
         ]);
     }
 

@@ -42,12 +42,12 @@ class Employee extends Model
 
     public function getTotalTrainingHoursAttribute()
     {
-        return $this->trainings()
+        return abs($this->trainings()
             ->wherePivot('completed', true)
             ->get()
             ->sum(function ($training) {
                 return $training->training_hours;
-            });
+            }));
     }
 
     public function getTrainingDetails()
