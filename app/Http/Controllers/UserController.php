@@ -1,6 +1,6 @@
 <?php
 // app/Http/Controllers/Admin/UserController.php
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
@@ -10,9 +10,8 @@ use Inertia\Inertia;
 
 class UserController extends Controller
 {
-    protected $userService;
 
-    public function __construct(UserService $userService)
+    public function __construct(protected UserService $userService)
     {
         $this->userService = $userService;
     }
@@ -24,7 +23,7 @@ class UserController extends Controller
             $request->perPage ?? 10
         );
 
-        return Inertia::render('Admin/Users/Index', [
+        return Inertia::render('Users/Index', [
             'users' => $users,
             'filters' => $request->only(['search', 'perPage'])
         ]);
@@ -32,7 +31,7 @@ class UserController extends Controller
 
     public function create()
     {
-        return Inertia::render('Admin/Users/Create');
+        return Inertia::render('Users/Create');
     }
 
     public function store(Request $request)
@@ -56,7 +55,7 @@ class UserController extends Controller
 
     public function edit(User $user)
     {
-        return Inertia::render('Admin/Users/Edit', [
+        return Inertia::render('Users/Edit', [
             'user' => $user
         ]);
     }

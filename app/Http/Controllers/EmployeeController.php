@@ -23,12 +23,11 @@ class EmployeeController extends Controller
 
     public function index(Request $request): Response
     {
-        $pageTitle = "Employees/Staff Management";
         $employees = $this->employeeService->getAllEmployees($request);
         $departments = $this->employeeService->getDepartment();
         // Get unique departments for filter
         return Inertia::render('Employees/Index', [
-            'pageTitle' => $pageTitle,
+            'pageTitle' => "Employees/Staff Management",
             'employees' => $employees,
             'filters' => $request->only(['search', 'department', 'status', 'short', 'direction', 'perPage']),
             'departments' => $departments
@@ -37,9 +36,8 @@ class EmployeeController extends Controller
 
     public function create(): Response
     {
-        $pageTitle = "Create New Employee/Staff";
         return Inertia::render('Employees/Create',[
-            'pageTitle' => $pageTitle
+            'pageTitle' => "Create New Employee/Staff"
         ]);
     }
 
@@ -54,7 +52,6 @@ class EmployeeController extends Controller
 
     public function show(Employee $employee): Response
     {
-        $pageTitle = "Edit Employee/Staff";
 
         $employee->load(['trainings' => function ($query) {
             $query->withPivot('attended', 'completed', 'grade');
@@ -65,22 +62,21 @@ class EmployeeController extends Controller
         })->get();
 
         return Inertia::render('Employees/Show', [
-            'pageTitle' => $pageTitle,
+            'pageTitle' => "Edit Employee/Staff",
             'employee' => $employee,
             'availableTrainings' => $availableTrainings
         ]);
     }
 
-    public function edit(Employee $employee)
+    public function edit(Employee $employee): Response
     {
-        $pageTitle = "Edit Employee/Staff";
         return Inertia::render('Employees/Edit', [
-            'pageTitle' => $pageTitle,
+            'pageTitle' => "Edit Employee/Staff",
             'employee' => $employee
         ]);
     }
 
-    public function update(Request $request, Employee $employee)
+    public function update(Request $request, Employee $employee): RedirectResponse
     {
         $validated = $request->validate([
             'name' => 'required|string|max:255',
@@ -109,7 +105,7 @@ class EmployeeController extends Controller
         return redirect()->route('admin.employees.index')->with('error', 'Error to delete employee');
     }
 
-    public function assignTraining(Request $request, Employee $employee)
+    public function assignTraining(Request $request, Employee $employee): RedirectResponse
     {
         $validated = $request->validate([
             'training_id' => 'required|exists:trainings,id',
@@ -123,7 +119,7 @@ class EmployeeController extends Controller
         return back()->with('success', 'Training assigned successfully.');
     }
 
-    public function removeTraining(Employee $employee, Training $training)
+    public function removeTraining(Employee $employee, Training $training): RedirectResponse
     {
         $this->employeeService->removeTraining($employee, $training->id);
 
