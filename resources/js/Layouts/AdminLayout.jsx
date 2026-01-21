@@ -10,7 +10,8 @@ import {
     Menu,
     X,
     LogOut,
-    Settings
+    Settings,
+    FileText
 } from 'lucide-react';
 import Toast from "@/Components/Toast.jsx";
 
@@ -44,6 +45,12 @@ export default function AdminLayout({ children, title }) {
             icon: Users,
             current: route().current('admin.users.*'),
             visible: auth.user.role === 'super-admin' || auth.user.role === 'admin'
+        },
+        {
+            name: 'Reports',
+            href: route('admin.reports.index'),
+            icon: FileText,
+            current: route().current('admin.reports.*')
         },
     ];
 

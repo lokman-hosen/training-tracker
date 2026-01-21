@@ -34,4 +34,27 @@ class Employee extends Model
     {
         return $this->trainings->where('pivot.completed', true)->count();
     }
+
+    public function getCompletedTrainingsCountAttribute()
+    {
+        return $this->trainings()->wherePivot('completed', true)->count();
+    }
+
+    public function getTotalTrainingHoursAttribute()
+    {
+        return $this->trainings()
+            ->wherePivot('completed', true)
+            ->get()
+            ->sum(function ($training) {
+                return $training->training_hours;
+            });
+    }
+
+    public function getTrainingDetails()
+    {
+        return $this->trainings()
+            ->select('trainings.*', 'employee_training.attended', 'employee_training.completed', 'employee_training.grade')
+            ->withPivot('attended', 'completed', 'grade', 'feedback')
+            ->get();
+    }
 }

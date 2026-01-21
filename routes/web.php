@@ -3,6 +3,7 @@
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ReportController;
 use App\Http\Controllers\TrainingController;
 use App\Http\Controllers\UserController;
 use Illuminate\Foundation\Application;
@@ -63,6 +64,14 @@ Route::middleware('auth')->group(function () {
             ->name('trainings.update-status');
         Route::delete('/trainings/{training}/remove-employee/{employee}', [TrainingController::class, 'removeEmployee'])
             ->name('trainings.remove-employee');
+
+        // Reports Routes
+        Route::prefix('reports')->name('reports.')->group(function () {
+            Route::get('/', [ReportController::class, 'index'])->name('index');
+            Route::get('/employee/{employee}', [ReportController::class, 'show'])->name('show');
+            Route::get('/export/list', [ReportController::class, 'exportList'])->name('export-list');
+            Route::get('/export/employee/{employee}', [ReportController::class, 'exportEmployee'])->name('export-employee');
+        });
     });
 });
 
