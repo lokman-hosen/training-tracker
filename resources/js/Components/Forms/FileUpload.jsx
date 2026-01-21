@@ -49,7 +49,7 @@ export default function FileUpload({
                         <div className="relative">
                             <img
                                 className="h-24 w-24 object-cover rounded-lg border"
-                                src={preview}
+                                src={`/storage/${preview}`}
                                 alt="Preview"
                             />
                             <button

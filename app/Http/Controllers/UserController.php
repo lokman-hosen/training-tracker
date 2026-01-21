@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Services\UserService;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -35,7 +36,7 @@ class UserController extends Controller
         ]);
     }
 
-    public function store(Request $request)
+    public function store(Request $request): RedirectResponse
     {
         $validated = $request->validate([
             'name' => 'required|string|max:255',
@@ -46,15 +47,20 @@ class UserController extends Controller
             'image' => 'nullable|image|max:2048',
         ]);
 
-        $this->userService->createUser($validated);
-
+        $user = $this->userService->createUser($validated);
+        if ($user){
+            return redirect()->route('admin.users.index')
+                ->with('success', 'User created successfully.');
+        }
         return redirect()->route('admin.users.index')
-            ->with('success', 'User created successfully.');
+            ->with('error', 'Something went wrong.');
+
     }
 
-    public function edit(User $user)
+    public function edit(User $user): Response
     {
         return Inertia::render('Users/Edit', [
+            'pageTitle' => "Users Management",
             'user' => $user
         ]);
     }

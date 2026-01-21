@@ -51,17 +51,17 @@ export default function UserForm({ user = null }) {
     return (
         <form onSubmit={handleSubmit} className="space-y-6">
             {/* Profile Image Upload */}
-            <FileUpload
-                label="Profile Picture"
-                name="image"
-                preview={previewImage}
-                onChange={handleImageChange}
-                onRemove={removeImage}
-                error={errors.image}
-                accept="image/*"
-                description="Upload a profile picture. Max size 2MB."
-                className="max-w-lg"
-            />
+            {/*<FileUpload*/}
+            {/*    label="Profile Picture"*/}
+            {/*    name="image"*/}
+            {/*    preview={previewImage}*/}
+            {/*    onChange={handleImageChange}*/}
+            {/*    onRemove={removeImage}*/}
+            {/*    error={errors.image}*/}
+            {/*    accept="image/*"*/}
+            {/*    description="Upload a profile picture. Max size 2MB."*/}
+            {/*    className="max-w-lg"*/}
+            {/*/>*/}
 
             {/* Personal Information */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
