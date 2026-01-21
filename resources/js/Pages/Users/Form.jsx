@@ -14,6 +14,7 @@ export default function UserForm({ user = null }) {
         password_confirmation: '',
         role: user?.role || 'admin',
         image: null,
+        _method: user ? 'PUT' : 'POST', // Add method field
     });
 
     const [previewImage, setPreviewImage] = useState(user?.image || null);
@@ -21,11 +22,27 @@ export default function UserForm({ user = null }) {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        if (user) {
-            put(route('admin.users.update', user.id));
-        } else {
-            post(route('admin.users.store'));
-        }
+        // Always use POST, but include _method field
+        post(route(user ? 'admin.users.update' : 'admin.users.store', user?.id), {
+            forceFormData: true, // Force FormData for file uploads
+            preserveScroll: true,
+            onSuccess: () => {
+                // Reset form after successful submission
+                if (!user) {
+                    setData({
+                        name: '',
+                        email: '',
+                        phone: '',
+                        password: '',
+                        password_confirmation: '',
+                        role: 'admin',
+                        image: null,
+                        _method: 'POST',
+                    });
+                    setPreviewImage(null);
+                }
+            }
+        });
     };
 
     const handleImageChange = (file) => {
@@ -51,17 +68,17 @@ export default function UserForm({ user = null }) {
     return (
         <form onSubmit={handleSubmit} className="space-y-6">
             {/* Profile Image Upload */}
-            {/*<FileUpload*/}
-            {/*    label="Profile Picture"*/}
-            {/*    name="image"*/}
-            {/*    preview={previewImage}*/}
-            {/*    onChange={handleImageChange}*/}
-            {/*    onRemove={removeImage}*/}
-            {/*    error={errors.image}*/}
-            {/*    accept="image/*"*/}
-            {/*    description="Upload a profile picture. Max size 2MB."*/}
-            {/*    className="max-w-lg"*/}
-            {/*/>*/}
+            <FileUpload
+                label="Profile Picture"
+                name="image"
+                preview={previewImage}
+                onChange={handleImageChange}
+                onRemove={removeImage}
+                error={errors.image}
+                accept="image/*"
+                description="Upload a profile picture. Max size 2MB."
+                className="max-w-lg"
+            />
 
             {/* Personal Information */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

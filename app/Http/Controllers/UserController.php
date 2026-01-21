@@ -65,7 +65,7 @@ class UserController extends Controller
         ]);
     }
 
-    public function update(Request $request, User $user)
+    public function update(Request $request, User $user): RedirectResponse
     {
         $validated = $request->validate([
             'name' => 'required|string|max:255',
@@ -74,14 +74,15 @@ class UserController extends Controller
             'password' => 'nullable|min:8',
             'role' => 'required|in:super-admin,admin,employee',
             'image' => 'nullable|image|max:2048',
-            'department' => 'nullable|string',
-            'joining_date' => 'nullable|date'
         ]);
 
-        $this->userService->updateUser($user, $validated);
-
+        $user = $this->userService->updateUser($user, $validated);
+        if ($user){
+            return redirect()->route('admin.users.index')
+                ->with('success', 'User updated successfully.');
+        }
         return redirect()->route('admin.users.index')
-            ->with('success', 'User updated successfully.');
+            ->with('error', 'Something went wrong.');
     }
 
     public function destroy(User $user)
