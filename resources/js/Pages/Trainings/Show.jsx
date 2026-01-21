@@ -29,6 +29,7 @@ import Select from '@/Components/Forms/Select';
 import Input from '@/Components/Forms/Input';
 
 export default function Show({ training, availableEmployees }) {
+    console.log(training)
     const [expandedEmployee, setExpandedEmployee] = useState(null);
     const [showAssignForm, setShowAssignForm] = useState(false);
     const [selectedEmployees, setSelectedEmployees] = useState([]);
@@ -118,12 +119,14 @@ export default function Show({ training, availableEmployees }) {
     };
 
     const getDuration = (start, end) => {
+        console.log(start, end)
         const startDate = new Date(start);
         const endDate = new Date(end);
         const diffMs = endDate - startDate;
         const diffHours = Math.floor(diffMs / (1000 * 60 * 60));
         const diffDays = Math.floor(diffHours / 24);
         const remainingHours = diffHours % 24;
+        console.log(diffDays)
 
         if (diffDays > 0) {
             return `${diffDays}d ${remainingHours > 0 ? `${remainingHours}h` : ''}`;
@@ -575,7 +578,7 @@ export default function Show({ training, availableEmployees }) {
                                         </div>
                                         <div className="flex justify-between">
                                             <span className="text-sm text-gray-600">Duration</span>
-                                            <span className="text-sm font-medium text-gray-900">{getDuration()}</span>
+                                            <span className="text-sm font-medium text-gray-900">{getDuration(training.start_date, training.end_date)}</span>
                                         </div>
                                         <div className="flex justify-between">
                                             <span className="text-sm text-gray-600">Location</span>
@@ -598,37 +601,37 @@ export default function Show({ training, availableEmployees }) {
                             </div>
 
                             {/* Quick Actions */}
-                            <div className="bg-white rounded-xl shadow-sm border border-gray-200">
-                                <div className="px-6 py-4 border-b border-gray-200">
-                                    <h3 className="text-lg font-semibold text-gray-900">Quick Actions</h3>
-                                </div>
-                                <div className="p-4 space-y-2">
-                                    <Link
-                                        href={route('admin.trainings.edit', training.id)}
-                                        className="flex items-center justify-between p-3 border rounded-lg hover:bg-blue-50 hover:border-blue-200 transition-colors"
-                                    >
-                                        <div className="flex items-center">
-                                            <Edit className="w-5 h-5 text-blue-600 mr-3" />
-                                            <span className="font-medium text-gray-900">Edit Training</span>
-                                        </div>
-                                        <ChevronRight className="w-4 h-4 text-gray-400" />
-                                    </Link>
-                                    <button className="flex items-center justify-between w-full p-3 border rounded-lg hover:bg-green-50 hover:border-green-200 transition-colors">
-                                        <div className="flex items-center">
-                                            <Send className="w-5 h-5 text-green-600 mr-3" />
-                                            <span className="font-medium text-gray-900">Send Reminders</span>
-                                        </div>
-                                        <ChevronRight className="w-4 h-4 text-gray-400" />
-                                    </button>
-                                    <button className="flex items-center justify-between w-full p-3 border rounded-lg hover:bg-purple-50 hover:border-purple-200 transition-colors">
-                                        <div className="flex items-center">
-                                            <Download className="w-5 h-5 text-purple-600 mr-3" />
-                                            <span className="font-medium text-gray-900">Export Report</span>
-                                        </div>
-                                        <ChevronRight className="w-4 h-4 text-gray-400" />
-                                    </button>
-                                </div>
-                            </div>
+                            {/*<div className="bg-white rounded-xl shadow-sm border border-gray-200">*/}
+                            {/*    <div className="px-6 py-4 border-b border-gray-200">*/}
+                            {/*        <h3 className="text-lg font-semibold text-gray-900">Quick Actions</h3>*/}
+                            {/*    </div>*/}
+                            {/*    <div className="p-4 space-y-2">*/}
+                            {/*        <Link*/}
+                            {/*            href={route('admin.trainings.edit', training.id)}*/}
+                            {/*            className="flex items-center justify-between p-3 border rounded-lg hover:bg-blue-50 hover:border-blue-200 transition-colors"*/}
+                            {/*        >*/}
+                            {/*            <div className="flex items-center">*/}
+                            {/*                <Edit className="w-5 h-5 text-blue-600 mr-3" />*/}
+                            {/*                <span className="font-medium text-gray-900">Edit Training</span>*/}
+                            {/*            </div>*/}
+                            {/*            <ChevronRight className="w-4 h-4 text-gray-400" />*/}
+                            {/*        </Link>*/}
+                            {/*        <button className="flex items-center justify-between w-full p-3 border rounded-lg hover:bg-green-50 hover:border-green-200 transition-colors">*/}
+                            {/*            <div className="flex items-center">*/}
+                            {/*                <Send className="w-5 h-5 text-green-600 mr-3" />*/}
+                            {/*                <span className="font-medium text-gray-900">Send Reminders</span>*/}
+                            {/*            </div>*/}
+                            {/*            <ChevronRight className="w-4 h-4 text-gray-400" />*/}
+                            {/*        </button>*/}
+                            {/*        <button className="flex items-center justify-between w-full p-3 border rounded-lg hover:bg-purple-50 hover:border-purple-200 transition-colors">*/}
+                            {/*            <div className="flex items-center">*/}
+                            {/*                <Download className="w-5 h-5 text-purple-600 mr-3" />*/}
+                            {/*                <span className="font-medium text-gray-900">Export Report</span>*/}
+                            {/*            </div>*/}
+                            {/*            <ChevronRight className="w-4 h-4 text-gray-400" />*/}
+                            {/*        </button>*/}
+                            {/*    </div>*/}
+                            {/*</div>*/}
                         </div>
                     </div>
                 </div>
