@@ -1,4 +1,3 @@
-// resources/js/Pages/Admin/Users/Index.jsx
 import React from 'react';
 import { Head, Link, usePage } from '@inertiajs/react';
 import AdminLayout from '@/Layouts/AdminLayout';
@@ -7,7 +6,8 @@ import {
     Edit,
     Trash2,
     UserPlus,
-    Eye
+    Eye,
+    User
 } from 'lucide-react';
 
 export default function Index({ users, filters }) {
@@ -24,7 +24,7 @@ export default function Index({ users, filters }) {
             <Head title="Users Management" />
 
             <div className="py-6">
-                <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                <div className="mx-auto sm:px-6 lg:px-8">
                     <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                         <div className="p-6">
                             {/* Header */}
@@ -110,7 +110,7 @@ export default function Index({ users, filters }) {
                                                             {user.name}
                                                         </div>
                                                         <div className="text-sm text-gray-500">
-                                                            Joined: {user.joining_date}
+                                                            Joined: {user.created_at}
                                                         </div>
                                                     </div>
                                                 </div>

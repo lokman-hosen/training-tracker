@@ -7,17 +7,26 @@ use Illuminate\Support\Facades\Storage;
 
 class UserService
 {
-    public function getAllUsers($search = null, $perPage = 10)
+    public function getAllUsers($request)
     {
         $query = User::query();
-
-        if ($search) {
+        if ($request->has('search') && $request->search) {
+            $search = $request->search;
             $query->where('name', 'like', "%{$search}%")
                 ->orWhere('email', 'like', "%{$search}%")
                 ->orWhere('phone', 'like', "%{$search}%");
         }
+        // Sorting
+        $sortField = $request->get('short', 'name');
+        $sortDirection = $request->get('direction', 'asc');
+        if (in_array($sortField, ['name', 'email', 'phone', 'created_at'])) {
+            $query->orderBy($sortField, $sortDirection);
+        } else {
+            $query->orderBy('name', 'asc');
+        }
 
-        return $query->latest()->paginate($perPage);
+        return $query->latest()->paginate($request->perPage ?? 10)
+            ->withQueryString();
     }
 
     public function createUser(array $data)

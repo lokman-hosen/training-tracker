@@ -16,14 +16,12 @@ class UserController extends Controller
         $this->userService = $userService;
     }
 
-    public function index(Request $request)
+    public function index(Request $request): \Inertia\Response
     {
-        $users = $this->userService->getAllUsers(
-            $request->search,
-            $request->perPage ?? 10
-        );
+        $users = $this->userService->getAllUsers($request);
 
         return Inertia::render('Users/Index', [
+            'pageTitle' => "Users Management",
             'users' => $users,
             'filters' => $request->only(['search', 'perPage'])
         ]);
