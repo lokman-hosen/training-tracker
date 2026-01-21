@@ -191,7 +191,7 @@ export default function Show({ employee, totalHours }) {
                                 </div>
                                 <div>
                                     <p className="text-sm text-gray-500">Total Hours</p>
-                                    {/*<p className="text-xl font-bold text-gray-900">{totalHours.toFixed(1)}</p>*/}
+                                    <p className="text-xl font-bold text-gray-900">{totalHours.toFixed(1)}</p>
                                 </div>
                             </div>
                         </div>
