@@ -1,5 +1,5 @@
-import React from 'react';
-import { Head, Link, usePage } from '@inertiajs/react';
+import React, {useState,useEffect} from 'react';
+import { Head, Link, router, usePage } from '@inertiajs/react';
 import AdminLayout from '@/Layouts/AdminLayout';
 import {
     Search,
@@ -9,9 +9,32 @@ import {
     Eye,
     User
 } from 'lucide-react';
+import Input from "@/Components/Forms/Input.jsx";
 
-export default function Index({ users, filters }) {
+export default function Index({ pageTitle, users, filters }) {
     const { auth } = usePage().props;
+    const safeFilters = filters || [];
+    const [search, setSearch] = useState(safeFilters?.search || '');
+
+
+    // Debounced search
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            updateFilters();
+        }, 500);
+
+        return () => clearTimeout(timer);
+    }, [search]);
+
+    const updateFilters = () => {
+        const params = {};
+        if (search) params.search = search;
+
+        router.get(route('admin.users.index'), params, {
+            preserveState: true,
+            replace: true
+        });
+    };
 
     const deleteUser = (id) => {
         if (confirm('Are you sure you want to delete this user?')) {
@@ -45,20 +68,12 @@ export default function Index({ users, filters }) {
                                     <div className="flex-1">
                                         <div className="relative">
                                             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
-                                            <input
+                                            <Input
                                                 type="search"
-                                                defaultValue={filters.search}
-                                                placeholder="Search users..."
-                                                className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                                                onKeyDown={(e) => {
-                                                    if (e.key === 'Enter') {
-                                                        e.preventDefault();
-                                                        const search = e.target.value;
-                                                        router.get(route('admin.users.index'), { search }, {
-                                                            preserveState: true
-                                                        });
-                                                    }
-                                                }}
+                                                value={search}
+                                                onChange={(e) => setSearch(e.target.value)}
+                                                placeholder="Search user by name, email, or phone..."
+                                                className="pl-10"
                                             />
                                         </div>
                                     </div>
