@@ -38,11 +38,11 @@ export default function Index({ employees, allEmployees, allTrainings, filters }
         const params = {};
 
         if (selectedEmployees.length > 0) {
-            params.employee_ids = selectedEmployees.map(emp => emp.id);
+            params.employee_ids = selectedEmployees.map(emp => emp.value);
         }
 
         if (selectedTrainings.length > 0) {
-            params.training_ids = selectedTrainings.map(train => train.id);
+            params.training_ids = selectedTrainings.map(train => train.value);
         }
 
         if (dateRange.start_date) params.start_date = dateRange.start_date;

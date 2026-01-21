@@ -15,6 +15,7 @@ class ReportController extends Controller
     // Show employee training report list
     public function index(Request $request)
     {
+        //dd($request->all());
         $query = Employee::withCount([
             'trainings as total_trainings_count',
             'trainings as completed_trainings_count' => function ($query) {
@@ -49,7 +50,7 @@ class ReportController extends Controller
             });
         }
 
-        $employees = $query->paginate($request->per_page ?? 15);
+        $employees = $query->paginate($request->per_page ?? 15)->withQueryString();
 
         // Calculate total training hours for each employee
         $employees->getCollection()->transform(function ($employee) {
