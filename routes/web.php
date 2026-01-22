@@ -66,8 +66,8 @@ Route::middleware('auth')->group(function () {
             ->name('trainings.remove-employee');
 
         // Reports Routes
-        Route::prefix('reports')->name('reports.')->group(function () {
-            Route::get('/', [ReportController::class, 'index'])->name('index');
+        Route::name('reports.')->group(function () {
+            Route::get('/reports', [ReportController::class, 'index'])->name('index');
             Route::get('/employee/{employee}', [ReportController::class, 'show'])->name('show');
             Route::get('/export/list', [ReportController::class, 'exportList'])->name('export-list');
             Route::get('/export/employee/{employee}', [ReportController::class, 'exportEmployee'])->name('export-employee');

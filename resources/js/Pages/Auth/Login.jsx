@@ -32,7 +32,7 @@ export default function Login({ status, canResetPassword }) {
                         </div>
                     </div>
                     <h2 className="text-2xl font-bold text-gray-800">Training Tracker</h2>
-                    <p className="text-gray-600 mt-2">Government Office Employee Training System</p>
+                    <p className="text-gray-600 mt-2">Office Employee/Staff Training System</p>
                 </div>
 
                 {status && (
@@ -104,14 +104,14 @@ export default function Login({ status, canResetPassword }) {
                                 </label>
                             </div>
 
-                            {canResetPassword && (
-                                <Link
-                                    href={route('password.request')}
-                                    className="text-sm text-blue-600 hover:text-blue-800"
-                                >
-                                    Forgot password?
-                                </Link>
-                            )}
+                            {/*{canResetPassword && (*/}
+                            {/*    <Link*/}
+                            {/*        href={route('password.request')}*/}
+                            {/*        className="text-sm text-blue-600 hover:text-blue-800"*/}
+                            {/*    >*/}
+                            {/*        Forgot password?*/}
+                            {/*    </Link>*/}
+                            {/*)}*/}
                         </div>
 
                         {/* Submit Button */}
@@ -131,7 +131,7 @@ export default function Login({ status, canResetPassword }) {
                 <div className="mt-8 pt-6 border-t border-gray-200">
                     <div className="text-center">
                         <p className="text-sm text-gray-600">
-                            Government Office Employee Training Management System
+                            Office Employee/Staff Training Management System
                         </p>
                         <p className="text-xs text-gray-500 mt-2">
                             For access issues, contact system administrator

@@ -120,7 +120,7 @@ export default function Dashboard({
             icon: Download,
             color: 'text-orange-600',
             bgColor: 'bg-orange-100',
-            route: '#'
+            route: 'admin.reports.index'
         }
     ];
 
@@ -137,16 +137,16 @@ export default function Dashboard({
                                 <h1 className="text-2xl font-bold text-gray-900">Dashboard Overview</h1>
                                 <p className="text-gray-600 mt-1">Welcome back! Here's what's happening with your training program.</p>
                             </div>
-                            <div className="mt-4 md:mt-0 flex items-center space-x-3">
-                                <button className="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50">
-                                    <Filter className="w-4 h-4 mr-2" />
-                                    Filter
-                                </button>
-                                <button className="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700">
-                                    <Download className="w-4 h-4 mr-2" />
-                                    Export Report
-                                </button>
-                            </div>
+                            {/*<div className="mt-4 md:mt-0 flex items-center space-x-3">*/}
+                            {/*    <button className="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50">*/}
+                            {/*        <Filter className="w-4 h-4 mr-2" />*/}
+                            {/*        Filter*/}
+                            {/*    </button>*/}
+                            {/*    <button className="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700">*/}
+                            {/*        <Download className="w-4 h-4 mr-2" />*/}
+                            {/*        Export Report*/}
+                            {/*    </button>*/}
+                            {/*</div>*/}
                         </div>
                         <div className="mt-4 flex items-center text-sm text-gray-500">
                             <Calendar className="w-4 h-4 mr-1" />
@@ -199,42 +199,42 @@ export default function Dashboard({
                         {/* Left Column - Training Overview */}
                         <div className="lg:col-span-2 space-y-6">
                             {/* Training Activity Chart */}
-                            <div className="bg-white rounded-xl shadow-sm border border-gray-200">
-                                <div className="px-6 py-4 border-b border-gray-200">
-                                    <div className="flex items-center justify-between">
-                                        <h3 className="text-lg font-semibold text-gray-900">Training Activity</h3>
-                                        <select className="text-sm border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500">
-                                            <option>Last 7 days</option>
-                                            <option>Last 30 days</option>
-                                            <option>Last 90 days</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div className="p-6">
-                                    {/* Chart Placeholder */}
-                                    <div className="h-64 flex items-center justify-center bg-gray-50 rounded-lg">
-                                        <div className="text-center">
-                                            <BarChart3 className="w-12 h-12 text-gray-400 mx-auto mb-3" />
-                                            <p className="text-gray-500">Training activity chart will appear here</p>
-                                            <p className="text-sm text-gray-400 mt-1">Shows training completion over time</p>
-                                        </div>
-                                    </div>
-                                    <div className="mt-6 grid grid-cols-3 gap-4 text-center">
-                                        <div className="p-4 bg-blue-50 rounded-lg">
-                                            <div className="text-2xl font-bold text-blue-700">{stats.completedTrainings || 0}</div>
-                                            <div className="text-sm text-blue-600">Completed</div>
-                                        </div>
-                                        <div className="p-4 bg-yellow-50 rounded-lg">
-                                            <div className="text-2xl font-bold text-yellow-700">{stats.ongoingTrainings || 0}</div>
-                                            <div className="text-sm text-yellow-600">In Progress</div>
-                                        </div>
-                                        <div className="p-4 bg-green-50 rounded-lg">
-                                            <div className="text-2xl font-bold text-green-700">{stats.avgCompletionRate || 0}%</div>
-                                            <div className="text-sm text-green-600">Completion Rate</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            {/*<div className="bg-white rounded-xl shadow-sm border border-gray-200">*/}
+                            {/*    <div className="px-6 py-4 border-b border-gray-200">*/}
+                            {/*        <div className="flex items-center justify-between">*/}
+                            {/*            <h3 className="text-lg font-semibold text-gray-900">Training Activity</h3>*/}
+                            {/*            <select className="text-sm border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500">*/}
+                            {/*                <option>Last 7 days</option>*/}
+                            {/*                <option>Last 30 days</option>*/}
+                            {/*                <option>Last 90 days</option>*/}
+                            {/*            </select>*/}
+                            {/*        </div>*/}
+                            {/*    </div>*/}
+                            {/*    <div className="p-6">*/}
+                            {/*        /!* Chart Placeholder *!/*/}
+                            {/*        <div className="h-64 flex items-center justify-center bg-gray-50 rounded-lg">*/}
+                            {/*            <div className="text-center">*/}
+                            {/*                <BarChart3 className="w-12 h-12 text-gray-400 mx-auto mb-3" />*/}
+                            {/*                <p className="text-gray-500">Training activity chart will appear here</p>*/}
+                            {/*                <p className="text-sm text-gray-400 mt-1">Shows training completion over time</p>*/}
+                            {/*            </div>*/}
+                            {/*        </div>*/}
+                            {/*        <div className="mt-6 grid grid-cols-3 gap-4 text-center">*/}
+                            {/*            <div className="p-4 bg-blue-50 rounded-lg">*/}
+                            {/*                <div className="text-2xl font-bold text-blue-700">{stats.completedTrainings || 0}</div>*/}
+                            {/*                <div className="text-sm text-blue-600">Completed</div>*/}
+                            {/*            </div>*/}
+                            {/*            <div className="p-4 bg-yellow-50 rounded-lg">*/}
+                            {/*                <div className="text-2xl font-bold text-yellow-700">{stats.ongoingTrainings || 0}</div>*/}
+                            {/*                <div className="text-sm text-yellow-600">In Progress</div>*/}
+                            {/*            </div>*/}
+                            {/*            <div className="p-4 bg-green-50 rounded-lg">*/}
+                            {/*                <div className="text-2xl font-bold text-green-700">{stats.avgCompletionRate || 0}%</div>*/}
+                            {/*                <div className="text-sm text-green-600">Completion Rate</div>*/}
+                            {/*            </div>*/}
+                            {/*        </div>*/}
+                            {/*    </div>*/}
+                            {/*</div>*/}
 
                             {/* Upcoming Trainings */}
                             <div className="bg-white rounded-xl shadow-sm border border-gray-200">
@@ -315,7 +315,7 @@ export default function Dashboard({
                                         {quickActions.map((action, index) => (
                                             <Link
                                                 key={index}
-
+                                                href={route(action.route)}
                                                 className="flex flex-col items-center justify-center p-4 border border-gray-200 rounded-lg hover:bg-gray-50 hover:border-blue-200 transition-colors group"
                                             >
                                                 <div className={`${action.bgColor} p-3 rounded-lg mb-3 group-hover:scale-105 transition-transform`}>
@@ -334,69 +334,69 @@ export default function Dashboard({
                             </div>
 
                             {/* Top Performers */}
-                            <div className="bg-white rounded-xl shadow-sm border border-gray-200">
-                                <div className="px-6 py-4 border-b border-gray-200">
-                                    <h3 className="text-lg font-semibold text-gray-900">Top Performers</h3>
-                                </div>
-                                <div className="p-4">
-                                    {trainingStats.topPerformers && trainingStats.topPerformers.length > 0 ? (
-                                        <div className="space-y-4">
-                                            {trainingStats.topPerformers.slice(0, 5).map((employee, index) => (
-                                                <div key={index} className="flex items-center p-3 bg-gray-50 rounded-lg">
-                                                    <div className="flex-shrink-0">
-                                                        <div className="h-10 w-10 rounded-full bg-blue-100 flex items-center justify-center">
-                                                            <span className="font-bold text-blue-600">
-                                                                {index + 1}
-                                                            </span>
-                                                        </div>
-                                                    </div>
-                                                    <div className="ml-4 flex-1">
-                                                        <div className="flex items-center justify-between">
-                                                            <div>
-                                                                <p className="text-sm font-medium text-gray-900">{employee.name}</p>
-                                                                <p className="text-xs text-gray-500">{employee.department}</p>
-                                                            </div>
-                                                            <div className="text-right">
-                                                                <div className="text-sm font-bold text-gray-900">
-                                                                    {employee.completed_trainings}
-                                                                </div>
-                                                                <div className="text-xs text-gray-500">trainings</div>
-                                                            </div>
-                                                        </div>
-                                                        <div className="mt-2">
-                                                            <div className="flex items-center">
-                                                                <div className="flex-1 bg-gray-200 rounded-full h-1.5">
-                                                                    <div
-                                                                        className="bg-green-500 h-1.5 rounded-full"
-                                                                        style={{ width: `${Math.min(employee.completion_rate, 100)}%` }}
-                                                                    ></div>
-                                                                </div>
-                                                                <span className="ml-2 text-xs font-medium text-gray-700">
-                                                                    {employee.completion_rate}%
-                                                                </span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            ))}
-                                        </div>
-                                    ) : (
-                                        <div className="text-center py-6">
-                                            <Award className="w-12 h-12 text-gray-400 mx-auto mb-3" />
-                                            <p className="text-gray-500">No performance data available</p>
-                                        </div>
-                                    )}
-                                    <div className="mt-4 pt-4 border-t">
-                                        <Link
-                                            href={route('admin.employees.index')}
-                                            className="flex items-center justify-center text-sm text-blue-600 hover:text-blue-800"
-                                        >
-                                            View all employees
-                                            <ArrowRight className="w-4 h-4 ml-2" />
-                                        </Link>
-                                    </div>
-                                </div>
-                            </div>
+                            {/*<div className="bg-white rounded-xl shadow-sm border border-gray-200">*/}
+                            {/*    <div className="px-6 py-4 border-b border-gray-200">*/}
+                            {/*        <h3 className="text-lg font-semibold text-gray-900">Top Performers</h3>*/}
+                            {/*    </div>*/}
+                            {/*    <div className="p-4">*/}
+                            {/*        {trainingStats.topPerformers && trainingStats.topPerformers.length > 0 ? (*/}
+                            {/*            <div className="space-y-4">*/}
+                            {/*                {trainingStats.topPerformers.slice(0, 5).map((employee, index) => (*/}
+                            {/*                    <div key={index} className="flex items-center p-3 bg-gray-50 rounded-lg">*/}
+                            {/*                        <div className="flex-shrink-0">*/}
+                            {/*                            <div className="h-10 w-10 rounded-full bg-blue-100 flex items-center justify-center">*/}
+                            {/*                                <span className="font-bold text-blue-600">*/}
+                            {/*                                    {index + 1}*/}
+                            {/*                                </span>*/}
+                            {/*                            </div>*/}
+                            {/*                        </div>*/}
+                            {/*                        <div className="ml-4 flex-1">*/}
+                            {/*                            <div className="flex items-center justify-between">*/}
+                            {/*                                <div>*/}
+                            {/*                                    <p className="text-sm font-medium text-gray-900">{employee.name}</p>*/}
+                            {/*                                    <p className="text-xs text-gray-500">{employee.department}</p>*/}
+                            {/*                                </div>*/}
+                            {/*                                <div className="text-right">*/}
+                            {/*                                    <div className="text-sm font-bold text-gray-900">*/}
+                            {/*                                        {employee.completed_trainings}*/}
+                            {/*                                    </div>*/}
+                            {/*                                    <div className="text-xs text-gray-500">trainings</div>*/}
+                            {/*                                </div>*/}
+                            {/*                            </div>*/}
+                            {/*                            <div className="mt-2">*/}
+                            {/*                                <div className="flex items-center">*/}
+                            {/*                                    <div className="flex-1 bg-gray-200 rounded-full h-1.5">*/}
+                            {/*                                        <div*/}
+                            {/*                                            className="bg-green-500 h-1.5 rounded-full"*/}
+                            {/*                                            style={{ width: `${Math.min(employee.completion_rate, 100)}%` }}*/}
+                            {/*                                        ></div>*/}
+                            {/*                                    </div>*/}
+                            {/*                                    <span className="ml-2 text-xs font-medium text-gray-700">*/}
+                            {/*                                        {employee.completion_rate}%*/}
+                            {/*                                    </span>*/}
+                            {/*                                </div>*/}
+                            {/*                            </div>*/}
+                            {/*                        </div>*/}
+                            {/*                    </div>*/}
+                            {/*                ))}*/}
+                            {/*            </div>*/}
+                            {/*        ) : (*/}
+                            {/*            <div className="text-center py-6">*/}
+                            {/*                <Award className="w-12 h-12 text-gray-400 mx-auto mb-3" />*/}
+                            {/*                <p className="text-gray-500">No performance data available</p>*/}
+                            {/*            </div>*/}
+                            {/*        )}*/}
+                            {/*        <div className="mt-4 pt-4 border-t">*/}
+                            {/*            <Link*/}
+                            {/*                href={route('admin.employees.index')}*/}
+                            {/*                className="flex items-center justify-center text-sm text-blue-600 hover:text-blue-800"*/}
+                            {/*            >*/}
+                            {/*                View all employees*/}
+                            {/*                <ArrowRight className="w-4 h-4 ml-2" />*/}
+                            {/*            </Link>*/}
+                            {/*        </div>*/}
+                            {/*    </div>*/}
+                            {/*</div>*/}
 
                             {/* Recent Activity */}
                             <div className="bg-white rounded-xl shadow-sm border border-gray-200">
@@ -438,131 +438,131 @@ export default function Dashboard({
                     </div>
 
                     {/* Department Statistics */}
-                    <div className="bg-white rounded-xl shadow-sm border border-gray-200 mb-8">
-                        <div className="px-6 py-4 border-b border-gray-200">
-                            <h3 className="text-lg font-semibold text-gray-900">Department Training Statistics</h3>
-                        </div>
-                        <div className="p-6">
-                            <div className="overflow-x-auto">
-                                <table className="min-w-full divide-y divide-gray-200">
-                                    <thead>
-                                    <tr>
-                                        <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                            Department
-                                        </th>
-                                        <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                            Employees
-                                        </th>
-                                        <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                            Trainings
-                                        </th>
-                                        <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                            Completion Rate
-                                        </th>
-                                        <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                            Avg. Hours
-                                        </th>
-                                        <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                            Status
-                                        </th>
-                                    </tr>
-                                    </thead>
-                                    <tbody className="divide-y divide-gray-200">
-                                    {trainingStats.departmentStats && trainingStats.departmentStats.length > 0 ? (
-                                        trainingStats.departmentStats.map((dept, index) => (
-                                            <tr key={index} className="hover:bg-gray-50">
-                                                <td className="px-4 py-4 whitespace-nowrap">
-                                                    <div className="flex items-center">
-                                                        <div className="h-10 w-10 rounded-full bg-blue-100 flex items-center justify-center">
-                                                            {/*<Building className="w-5 h-5 text-blue-600" />*/}
-                                                            Building
-                                                        </div>
-                                                        <div className="ml-4">
-                                                            <div className="text-sm font-medium text-gray-900">
-                                                                {dept.name}
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td className="px-4 py-4 whitespace-nowrap">
-                                                    <div className="text-sm text-gray-900">{dept.employee_count}</div>
-                                                </td>
-                                                <td className="px-4 py-4 whitespace-nowrap">
-                                                    <div className="text-sm text-gray-900">{dept.training_count}</div>
-                                                </td>
-                                                <td className="px-4 py-4 whitespace-nowrap">
-                                                    <div className="flex items-center">
-                                                        <div className="flex-1 bg-gray-200 rounded-full h-2">
-                                                            <div
-                                                                className="bg-green-500 h-2 rounded-full"
-                                                                style={{ width: `${Math.min(dept.completion_rate, 100)}%` }}
-                                                            ></div>
-                                                        </div>
-                                                        <span className="ml-2 text-sm text-gray-700">
-                                                                {dept.completion_rate}%
-                                                            </span>
-                                                    </div>
-                                                </td>
-                                                <td className="px-4 py-4 whitespace-nowrap">
-                                                    <div className="text-sm text-gray-900">{dept.avg_hours} hrs</div>
-                                                </td>
-                                                <td className="px-4 py-4 whitespace-nowrap">
-                                                        <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${
-                                                            dept.status === 'Excellent'
-                                                                ? 'bg-green-100 text-green-800'
-                                                                : dept.status === 'Good'
-                                                                    ? 'bg-blue-100 text-blue-800'
-                                                                    : 'bg-yellow-100 text-yellow-800'
-                                                        }`}>
-                                                            {dept.status}
-                                                        </span>
-                                                </td>
-                                            </tr>
-                                        ))
-                                    ) : (
-                                        <tr>
-                                            <td colSpan="6" className="px-4 py-8 text-center">
-                                                <div className="text-gray-500">No department statistics available</div>
-                                            </td>
-                                        </tr>
-                                    )}
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
+                    {/*<div className="bg-white rounded-xl shadow-sm border border-gray-200 mb-8">*/}
+                    {/*    <div className="px-6 py-4 border-b border-gray-200">*/}
+                    {/*        <h3 className="text-lg font-semibold text-gray-900">Department Training Statistics</h3>*/}
+                    {/*    </div>*/}
+                    {/*    <div className="p-6">*/}
+                    {/*        <div className="overflow-x-auto">*/}
+                    {/*            <table className="min-w-full divide-y divide-gray-200">*/}
+                    {/*                <thead>*/}
+                    {/*                <tr>*/}
+                    {/*                    <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">*/}
+                    {/*                        Department*/}
+                    {/*                    </th>*/}
+                    {/*                    <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">*/}
+                    {/*                        Employees*/}
+                    {/*                    </th>*/}
+                    {/*                    <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">*/}
+                    {/*                        Trainings*/}
+                    {/*                    </th>*/}
+                    {/*                    <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">*/}
+                    {/*                        Completion Rate*/}
+                    {/*                    </th>*/}
+                    {/*                    <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">*/}
+                    {/*                        Avg. Hours*/}
+                    {/*                    </th>*/}
+                    {/*                    <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">*/}
+                    {/*                        Status*/}
+                    {/*                    </th>*/}
+                    {/*                </tr>*/}
+                    {/*                </thead>*/}
+                    {/*                <tbody className="divide-y divide-gray-200">*/}
+                    {/*                {trainingStats.departmentStats && trainingStats.departmentStats.length > 0 ? (*/}
+                    {/*                    trainingStats.departmentStats.map((dept, index) => (*/}
+                    {/*                        <tr key={index} className="hover:bg-gray-50">*/}
+                    {/*                            <td className="px-4 py-4 whitespace-nowrap">*/}
+                    {/*                                <div className="flex items-center">*/}
+                    {/*                                    <div className="h-10 w-10 rounded-full bg-blue-100 flex items-center justify-center">*/}
+                    {/*                                        /!*<Building className="w-5 h-5 text-blue-600" />*!/*/}
+                    {/*                                        Building*/}
+                    {/*                                    </div>*/}
+                    {/*                                    <div className="ml-4">*/}
+                    {/*                                        <div className="text-sm font-medium text-gray-900">*/}
+                    {/*                                            {dept.name}*/}
+                    {/*                                        </div>*/}
+                    {/*                                    </div>*/}
+                    {/*                                </div>*/}
+                    {/*                            </td>*/}
+                    {/*                            <td className="px-4 py-4 whitespace-nowrap">*/}
+                    {/*                                <div className="text-sm text-gray-900">{dept.employee_count}</div>*/}
+                    {/*                            </td>*/}
+                    {/*                            <td className="px-4 py-4 whitespace-nowrap">*/}
+                    {/*                                <div className="text-sm text-gray-900">{dept.training_count}</div>*/}
+                    {/*                            </td>*/}
+                    {/*                            <td className="px-4 py-4 whitespace-nowrap">*/}
+                    {/*                                <div className="flex items-center">*/}
+                    {/*                                    <div className="flex-1 bg-gray-200 rounded-full h-2">*/}
+                    {/*                                        <div*/}
+                    {/*                                            className="bg-green-500 h-2 rounded-full"*/}
+                    {/*                                            style={{ width: `${Math.min(dept.completion_rate, 100)}%` }}*/}
+                    {/*                                        ></div>*/}
+                    {/*                                    </div>*/}
+                    {/*                                    <span className="ml-2 text-sm text-gray-700">*/}
+                    {/*                                            {dept.completion_rate}%*/}
+                    {/*                                        </span>*/}
+                    {/*                                </div>*/}
+                    {/*                            </td>*/}
+                    {/*                            <td className="px-4 py-4 whitespace-nowrap">*/}
+                    {/*                                <div className="text-sm text-gray-900">{dept.avg_hours} hrs</div>*/}
+                    {/*                            </td>*/}
+                    {/*                            <td className="px-4 py-4 whitespace-nowrap">*/}
+                    {/*                                    <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${*/}
+                    {/*                                        dept.status === 'Excellent'*/}
+                    {/*                                            ? 'bg-green-100 text-green-800'*/}
+                    {/*                                            : dept.status === 'Good'*/}
+                    {/*                                                ? 'bg-blue-100 text-blue-800'*/}
+                    {/*                                                : 'bg-yellow-100 text-yellow-800'*/}
+                    {/*                                    }`}>*/}
+                    {/*                                        {dept.status}*/}
+                    {/*                                    </span>*/}
+                    {/*                            </td>*/}
+                    {/*                        </tr>*/}
+                    {/*                    ))*/}
+                    {/*                ) : (*/}
+                    {/*                    <tr>*/}
+                    {/*                        <td colSpan="6" className="px-4 py-8 text-center">*/}
+                    {/*                            <div className="text-gray-500">No department statistics available</div>*/}
+                    {/*                        </td>*/}
+                    {/*                    </tr>*/}
+                    {/*                )}*/}
+                    {/*                </tbody>*/}
+                    {/*            </table>*/}
+                    {/*        </div>*/}
+                    {/*    </div>*/}
+                    {/*</div>*/}
 
                     {/* System Status */}
-                    <div className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl shadow-lg p-6 mb-8">
-                        <div className="flex items-center justify-between">
-                            <div>
-                                <h3 className="text-xl font-bold text-white">System Status</h3>
-                                <p className="text-blue-100 mt-1">All systems operational</p>
-                            </div>
-                            <div className="flex items-center space-x-4">
-                                <div className="text-center">
-                                    <div className="text-2xl font-bold text-white">{stats.totalEmployees || 0}</div>
-                                    <div className="text-blue-200 text-sm">Active Users</div>
-                                </div>
-                                <div className="h-12 w-px bg-blue-400"></div>
-                                <div className="text-center">
-                                    <div className="text-2xl font-bold text-white">{stats.ongoingTrainings || 0}</div>
-                                    <div className="text-blue-200 text-sm">Live Sessions</div>
-                                </div>
-                                <div className="h-12 w-px bg-blue-400"></div>
-                                <div className="text-center">
-                                    <div className="text-2xl font-bold text-white">{stats.avgCompletionRate || 0}%</div>
-                                    <div className="text-blue-200 text-sm">Success Rate</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="mt-6">
-                            <div className="flex items-center text-sm text-blue-200">
-                                <CheckCircle className="w-4 h-4 mr-2" />
-                                Last updated: Just now • All services running normally
-                            </div>
-                        </div>
-                    </div>
+                    {/*<div className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl shadow-lg p-6 mb-8">*/}
+                    {/*    <div className="flex items-center justify-between">*/}
+                    {/*        <div>*/}
+                    {/*            <h3 className="text-xl font-bold text-white">System Status</h3>*/}
+                    {/*            <p className="text-blue-100 mt-1">All systems operational</p>*/}
+                    {/*        </div>*/}
+                    {/*        <div className="flex items-center space-x-4">*/}
+                    {/*            <div className="text-center">*/}
+                    {/*                <div className="text-2xl font-bold text-white">{stats.totalEmployees || 0}</div>*/}
+                    {/*                <div className="text-blue-200 text-sm">Active Users</div>*/}
+                    {/*            </div>*/}
+                    {/*            <div className="h-12 w-px bg-blue-400"></div>*/}
+                    {/*            <div className="text-center">*/}
+                    {/*                <div className="text-2xl font-bold text-white">{stats.ongoingTrainings || 0}</div>*/}
+                    {/*                <div className="text-blue-200 text-sm">Live Sessions</div>*/}
+                    {/*            </div>*/}
+                    {/*            <div className="h-12 w-px bg-blue-400"></div>*/}
+                    {/*            <div className="text-center">*/}
+                    {/*                <div className="text-2xl font-bold text-white">{stats.avgCompletionRate || 0}%</div>*/}
+                    {/*                <div className="text-blue-200 text-sm">Success Rate</div>*/}
+                    {/*            </div>*/}
+                    {/*        </div>*/}
+                    {/*    </div>*/}
+                    {/*    <div className="mt-6">*/}
+                    {/*        <div className="flex items-center text-sm text-blue-200">*/}
+                    {/*            <CheckCircle className="w-4 h-4 mr-2" />*/}
+                    {/*            Last updated: Just now • All services running normally*/}
+                    {/*        </div>*/}
+                    {/*    </div>*/}
+                    {/*</div>*/}
                 </div>
             </div>
         </AdminLayout>
