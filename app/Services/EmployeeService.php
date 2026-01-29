@@ -108,7 +108,7 @@ class EmployeeService
 
     public function list()
     {
-        return $this->employee->select('id', 'name', 'id_number', 'department', 'designation', 'image')
+        return $this->employee->select('id', 'name', 'id_number', 'phone', 'department', 'designation', 'image')
             ->get();
     }
 }

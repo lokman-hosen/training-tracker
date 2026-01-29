@@ -242,42 +242,39 @@ export default function TrainingForm({ training = null }) {
 
             {/* Trainer Information Section */}
             <div className="bg-white shadow rounded-lg p-6">
-                <h3 className="text-lg font-medium text-gray-900 mb-6">Trainer Information</h3>
+                <h3 className="text-lg font-medium text-gray-900 mb-6">Trainer/Training Institute Info(Optional)</h3>
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                     {/* Trainer Name */}
                     <Input
-                        label="Trainer Name"
+                        label="Trainer/Institute Name"
                         name="trainer_name"
                         value={data.trainer_name}
                         onChange={(e) => setData('trainer_name', e.target.value)}
                         error={errors.trainer_name}
-                        required
-                        placeholder="Enter trainer's full name"
+                        placeholder="Enter full name"
                     />
 
                     {/* Trainer Email */}
                     <Input
-                        label="Trainer Email"
+                        label="Trainer/Institute Email"
                         type="email"
                         name="trainer_email"
                         value={data.trainer_email}
                         onChange={(e) => setData('trainer_email', e.target.value)}
                         error={errors.trainer_email}
-                        required
-                        placeholder="Enter trainer's email address"
+                        placeholder="Enter email address"
                     />
 
                     {/* Trainer Phone */}
                     <Input
-                        label="Trainer Phone"
+                        label="Trainer/Institute Phone"
                         type="tel"
                         name="trainer_phone"
                         value={data.trainer_phone}
                         onChange={(e) => setData('trainer_phone', e.target.value)}
                         error={errors.trainer_phone}
-                        required
-                        placeholder="Enter trainer's phone number"
+                        placeholder="Enter phone number"
                     />
                 </div>
             </div>
@@ -285,7 +282,7 @@ export default function TrainingForm({ training = null }) {
             {/* Assign Employees Section */}
             <div className="bg-white shadow rounded-lg p-6">
                 <div className="flex items-center justify-between mb-6">
-                    <h3 className="text-lg font-medium text-gray-900">Assign Employees</h3>
+                    <h3 className="text-lg font-medium text-gray-900">Assign officers/staffs</h3>
                     <button
                         type="button"
                         onClick={selectAllEmployees}
@@ -305,7 +302,7 @@ export default function TrainingForm({ training = null }) {
                                         Select
                                     </th>
                                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                        Employee
+                                        officer/staff
                                     </th>
                                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                         Department
@@ -353,7 +350,12 @@ export default function TrainingForm({ training = null }) {
                                                         {employee.name}
                                                     </div>
                                                     <div className="text-xs text-gray-500">
-                                                        ID: {employee.id_number}
+                                                        <span>Phone: {employee?.phone}</span>
+                                                        {employee.id_number &&
+                                                            <>
+                                                                <br/><span> ID: {employee?.id_number}</span>
+                                                            </>
+                                                        }
                                                     </div>
                                                 </div>
                                             </div>
@@ -373,15 +375,15 @@ export default function TrainingForm({ training = null }) {
                 ) : (
                     <div className="text-center py-8 border border-gray-200 rounded-lg">
                         <User className="w-12 h-12 text-gray-400 mx-auto mb-3" />
-                        <p className="text-gray-500">No employees available to assign</p>
+                        <p className="text-gray-500">No officers/staffs available to assign</p>
                         <p className="text-sm text-gray-400 mt-1">
-                            Add employees first to assign them to this training
+                            Add officers/staffs first to assign them to this training
                         </p>
                         <Link
                             href={route('admin.employees.create')}
                             className="inline-flex items-center mt-4 text-blue-600 hover:text-blue-800"
                         >
-                            Add New Employee
+                            Add New officer/staff
                         </Link>
                     </div>
                 )}
@@ -390,12 +392,12 @@ export default function TrainingForm({ training = null }) {
                     <div className="flex items-center justify-between">
                         <div>
                             <p className="text-sm font-medium text-blue-800">
-                                {selectedEmployees.length} employee(s) selected
+                                {selectedEmployees.length} officer/staff(s) selected
                             </p>
                             <p className="text-xs text-blue-600">
                                 {selectedEmployees.length === employees.length
                                     ? 'All employees will attend this training'
-                                    : 'Only selected employees will be assigned to this training'
+                                    : 'Only selected officers/staffs will be assigned to this training'
                                 }
                             </p>
                         </div>

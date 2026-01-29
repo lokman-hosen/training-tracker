@@ -70,7 +70,7 @@ class TrainingController extends Controller
     public function show(Training $training): Response
     {
         $training->load(['employees' => function ($query) {
-            $query->select('employees.id', 'name', 'id_number', 'department', 'image', 'designation');
+            $query->select('employees.id', 'name', 'id_number', 'phone', 'department', 'image', 'designation');
         }]);
 
         $availableEmployees = Employee::whereDoesntHave('trainings', function ($query) use ($training) {
