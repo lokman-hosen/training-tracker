@@ -24,9 +24,9 @@ class DashboardController extends Controller
                 ->count(),
             'completedTrainings' => Training::where('end_date', '<', now())
                 ->count(),
-            'totalTrainingHours' => Training::get()->sum(function ($training) {
+            'totalTrainingHours' => abs(Training::get()->sum(function ($training) {
                 return $training->training_hours;
-            }),
+            })),
             'activeEmployees' => Employee::has('trainings')->count(),
             'avgCompletionRate' => $this->calculateAvgCompletionRate(),
         ];

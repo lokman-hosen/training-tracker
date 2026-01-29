@@ -44,7 +44,7 @@ export default function Dashboard({
                                   }) {
     const cards = [
         {
-            title: 'Total Employees',
+            title: 'Total Officer/staff',
             value: stats.totalEmployees,
             icon: Users,
             color: 'bg-blue-500',
@@ -176,9 +176,9 @@ export default function Dashboard({
                                                     {card.value}
                                                     {card.suffix && <span className="text-lg ml-1">{card.suffix}</span>}
                                                 </p>
-                                                <span className={`ml-3 text-sm font-medium ${card.trend === 'up' ? 'text-green-600' : 'text-red-600'}`}>
-                                                    {card.change}
-                                                </span>
+                                                {/*<span className={`ml-3 text-sm font-medium ${card.trend === 'up' ? 'text-green-600' : 'text-red-600'}`}>*/}
+                                                {/*    {card.change}*/}
+                                                {/*</span>*/}
                                             </div>
                                         </div>
                                         <div className={`${card.color} p-3 rounded-xl`}>
@@ -399,41 +399,41 @@ export default function Dashboard({
                             {/*</div>*/}
 
                             {/* Recent Activity */}
-                            <div className="bg-white rounded-xl shadow-sm border border-gray-200">
-                                <div className="px-6 py-4 border-b border-gray-200">
-                                    <h3 className="text-lg font-semibold text-gray-900">Recent Activity</h3>
-                                </div>
-                                <div className="p-4">
-                                    {recentActivities.length > 0 ? (
-                                        <div className="space-y-4">
-                                            {recentActivities.slice(0, 6).map((activity, index) => (
-                                                <div key={index} className="flex items-start">
-                                                    <div className={`p-2 rounded-full ${activity.type === 'training' ? 'bg-purple-100' : activity.type === 'employee' ? 'bg-blue-100' : 'bg-green-100'}`}>
-                                                        {activity.type === 'training' ? (
-                                                            <GraduationCap className="w-4 h-4 text-purple-600" />
-                                                        ) : activity.type === 'employee' ? (
-                                                            <UserCircle className="w-4 h-4 text-blue-600" />
-                                                        ) : (
-                                                            <CheckCircle className="w-4 h-4 text-green-600" />
-                                                        )}
-                                                    </div>
-                                                    <div className="ml-3 flex-1">
-                                                        <p className="text-sm text-gray-900">{activity.description}</p>
-                                                        <p className="text-xs text-gray-500 mt-1">
-                                                            {new Date(activity.created_at).toLocaleString()}
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                            ))}
-                                        </div>
-                                    ) : (
-                                        <div className="text-center py-6">
-                                            <Activity className="w-12 h-12 text-gray-400 mx-auto mb-3" />
-                                            <p className="text-gray-500">No recent activity</p>
-                                        </div>
-                                    )}
-                                </div>
-                            </div>
+                            {/*<div className="bg-white rounded-xl shadow-sm border border-gray-200">*/}
+                            {/*    <div className="px-6 py-4 border-b border-gray-200">*/}
+                            {/*        <h3 className="text-lg font-semibold text-gray-900">Recent Activity</h3>*/}
+                            {/*    </div>*/}
+                            {/*    <div className="p-4">*/}
+                            {/*        {recentActivities.length > 0 ? (*/}
+                            {/*            <div className="space-y-4">*/}
+                            {/*                {recentActivities.slice(0, 6).map((activity, index) => (*/}
+                            {/*                    <div key={index} className="flex items-start">*/}
+                            {/*                        <div className={`p-2 rounded-full ${activity.type === 'training' ? 'bg-purple-100' : activity.type === 'employee' ? 'bg-blue-100' : 'bg-green-100'}`}>*/}
+                            {/*                            {activity.type === 'training' ? (*/}
+                            {/*                                <GraduationCap className="w-4 h-4 text-purple-600" />*/}
+                            {/*                            ) : activity.type === 'employee' ? (*/}
+                            {/*                                <UserCircle className="w-4 h-4 text-blue-600" />*/}
+                            {/*                            ) : (*/}
+                            {/*                                <CheckCircle className="w-4 h-4 text-green-600" />*/}
+                            {/*                            )}*/}
+                            {/*                        </div>*/}
+                            {/*                        <div className="ml-3 flex-1">*/}
+                            {/*                            <p className="text-sm text-gray-900">{activity.description}</p>*/}
+                            {/*                            <p className="text-xs text-gray-500 mt-1">*/}
+                            {/*                                {new Date(activity.created_at).toLocaleString()}*/}
+                            {/*                            </p>*/}
+                            {/*                        </div>*/}
+                            {/*                    </div>*/}
+                            {/*                ))}*/}
+                            {/*            </div>*/}
+                            {/*        ) : (*/}
+                            {/*            <div className="text-center py-6">*/}
+                            {/*                <Activity className="w-12 h-12 text-gray-400 mx-auto mb-3" />*/}
+                            {/*                <p className="text-gray-500">No recent activity</p>*/}
+                            {/*            </div>*/}
+                            {/*        )}*/}
+                            {/*    </div>*/}
+                            {/*</div>*/}
                         </div>
                     </div>
 
