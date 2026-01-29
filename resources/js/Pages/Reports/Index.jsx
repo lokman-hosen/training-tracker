@@ -260,10 +260,13 @@ export default function Index({ employees, allEmployees, allTrainings, filters }
                                 <thead className="bg-gray-50">
                                 <tr>
                                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                        officer/staff
+                                        Officer/staff
                                     </th>
                                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                         Contact
+                                    </th>
+                                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        Attended Trainings
                                     </th>
                                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                         Training Stats
@@ -318,6 +321,22 @@ export default function Index({ employees, allEmployees, allTrainings, filters }
                                                             <div className="text-sm text-gray-900">{employee.email}</div>
                                                         )}
                                                         <div className="text-sm text-gray-900">{employee.phone}</div>
+                                                    </div>
+                                                </td>
+
+                                                {/* Attended Training */}
+                                                <td className="px-6 py-4">
+                                                    <div className="space-y-1">
+                                                        {employee.trainings.length > 0 ? (
+                                                            employee.trainings.map((training, Index) => (
+                                                                <div className="text-sm text-gray-900">
+                                                                    {(Index + 1) + '. ' + training.name} <br/>
+                                                                    <small className="text-gray-500">Duration: {new Date(training.start_date).toLocaleString()+'-'+new Date(training.end_date).toLocaleString()}</small>
+                                                                </div>
+                                                            ))
+                                                        ) : (
+                                                            <div className="text-sm text-gray-900">n/a</div>
+                                                        )}
                                                     </div>
                                                 </td>
 

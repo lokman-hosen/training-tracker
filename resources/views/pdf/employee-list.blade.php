@@ -191,8 +191,9 @@
     <tr>
         <th>SL</th>
         <th>Employee ID</th>
-        <th>Employee Name</th>
+        <th>Officer/staff Name</th>
         <th>Contact</th>
+        <th>Attended Trainings</th>
         <th>Total Trainings</th>
         <th>Completed</th>
         <th>Training Hours</th>
@@ -209,8 +210,20 @@
                 {{ $employee->phone }}<br>
                 <small>{{ $employee->email }}</small>
             </td>
+            <td>
+                @if($employee->trainings->count() > 0)
+                    <ol style="padding: 5px; margin: 5px;">
+                        @foreach($employee->trainings as $training)
+                            <li>{{$training->name}}</li>
+                        @endforeach
+                    </ol>
+                @else
+                    <p>n/a</p>
+                @endif
+            </td>
             <td style="text-align: center;">{{ $employee->total_trainings_count }}</td>
             <td style="text-align: center;">{{ $employee->completed_trainings_count }}</td>
+
             <td style="text-align: center;">{{ abs(number_format($employee->total_training_hours, 1)) }}</td>
             <td style="text-align: center;">
                 @if($employee->completed_trainings_count == $employee->total_trainings_count)
