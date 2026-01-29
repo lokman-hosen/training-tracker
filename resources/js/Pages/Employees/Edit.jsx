@@ -12,7 +12,7 @@ export default function Edit({ pageTitle, employee }) {
                     <div className="bg-white shadow-sm sm:rounded-lg">
                         <div className="p-6">
                             <div className="flex items-center justify-between mb-6">
-                                <h2 className="text-2xl font-bold text-gray-800">{`Edit Employee - ${employee.name}`}</h2>
+                                <h2 className="text-2xl font-bold text-gray-800">{`Edit Officer/Staff - ${employee.name}`}</h2>
                             </div>
                             <Form employee={employee} />
                         </div>

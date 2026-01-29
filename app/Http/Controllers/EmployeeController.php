@@ -27,7 +27,7 @@ class EmployeeController extends Controller
         $departments = $this->employeeService->getDepartment();
         // Get unique departments for filter
         return Inertia::render('Employees/Index', [
-            'pageTitle' => "Employees/Staff Management",
+            'pageTitle' => "Officers/Staff Management",
             'employees' => $employees,
             'filters' => $request->only(['search', 'department', 'status', 'short', 'direction', 'perPage']),
             'departments' => $departments
@@ -37,7 +37,7 @@ class EmployeeController extends Controller
     public function create(): Response
     {
         return Inertia::render('Employees/Create',[
-            'pageTitle' => "Create New Employee/Staff"
+            'pageTitle' => "Create New Officer/Staff"
         ]);
     }
 
@@ -62,7 +62,7 @@ class EmployeeController extends Controller
         })->get();
 
         return Inertia::render('Employees/Show', [
-            'pageTitle' => "Edit Employee/Staff",
+            'pageTitle' => "Edit Officer/Staff",
             'employee' => $employee,
             'availableTrainings' => $availableTrainings
         ]);
@@ -71,7 +71,7 @@ class EmployeeController extends Controller
     public function edit(Employee $employee): Response
     {
         return Inertia::render('Employees/Edit', [
-            'pageTitle' => "Edit Employee/Staff",
+            'pageTitle' => "Edit Officer/Staff",
             'employee' => $employee
         ]);
     }

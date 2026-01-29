@@ -8,7 +8,6 @@ import {
     UserPlus,
     Eye,
     Filter,
-    Download,
     MoreVertical,
     User,
     Building,
@@ -69,18 +68,18 @@ export default function Index({ pageTitle, employees, departments, filters }) {
     };
 
     const deleteEmployee = (id) => {
-        if (confirm('Are you sure you want to delete this employee? This action cannot be undone.')) {
+        if (confirm('Are you sure you want to delete this Officer/Staff? This action cannot be undone.')) {
             router.delete(route('admin.employees.destroy', id));
         }
     };
 
     const deleteSelected = () => {
         if (selectedRows.length === 0) {
-            alert('Please select employees to delete.');
+            alert('Please select officers/staffs to delete.');
             return;
         }
 
-        if (confirm(`Are you sure you want to delete ${selectedRows.length} selected employee(s)?`)) {
+        if (confirm(`Are you sure you want to delete ${selectedRows.length} selected Officer/Staff(s)?`)) {
             // Batch delete implementation would go here
             // For now, we'll delete individually
             selectedRows.forEach(id => {
@@ -149,9 +148,9 @@ export default function Index({ pageTitle, employees, departments, filters }) {
                     <div className="mb-6">
                         <div className="flex flex-col md:flex-row md:items-center justify-between">
                             <div>
-                                <h2 className="text-2xl font-bold text-gray-800">Employees/Staff Management</h2>
+                                <h2 className="text-2xl font-bold text-gray-800">Officer's/Staff Management</h2>
                                 <p className="text-gray-600 mt-1">
-                                    Manage all employees/staff and their training records
+                                    Manage all officers/staffs and their training records
                                 </p>
                             </div>
                             <div className="mt-4 md:mt-0 flex items-center space-x-3">
@@ -167,7 +166,7 @@ export default function Index({ pageTitle, employees, departments, filters }) {
                                     className="inline-flex items-center px-4 py-2 bg-blue-600 border border-transparent rounded-md shadow-sm text-sm font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
                                 >
                                     <UserPlus className="w-4 h-4 mr-2" />
-                                    Add Employee
+                                    Add Officer/Staff
                                 </Link>
                             </div>
                         </div>
@@ -181,7 +180,7 @@ export default function Index({ pageTitle, employees, departments, filters }) {
                                     <User className="w-5 h-5 text-blue-600" />
                                 </div>
                                 <div>
-                                    <p className="text-sm text-gray-500">Total Employees</p>
+                                    <p className="text-sm text-gray-500">Total officers/staffs</p>
                                     <p className="text-xl font-bold text-gray-900">{employees.total}</p>
                                 </div>
                             </div>
@@ -247,7 +246,7 @@ export default function Index({ pageTitle, employees, departments, filters }) {
                                             type="search"
                                             value={search}
                                             onChange={(e) => setSearch(e.target.value)}
-                                            placeholder="Search employees by name, ID, email, or phone..."
+                                            placeholder="Search officers/staffs by name, ID, email, or phone..."
                                             className="pl-10"
                                         />
                                     </div>
@@ -311,7 +310,7 @@ export default function Index({ pageTitle, employees, departments, filters }) {
                                             {selectedRows.length} employee(s) selected
                                         </p>
                                         <p className="text-sm text-blue-600">
-                                            Choose an action to perform on selected employees
+                                            Choose an action to perform on selected officers/staffs
                                         </p>
                                     </div>
                                 </div>
@@ -369,7 +368,7 @@ export default function Index({ pageTitle, employees, departments, filters }) {
                                         onClick={() => handleSort('name')}
                                     >
                                         <div className="flex items-center">
-                                            Employee
+                                            Officer/Staff
                                             <SortIcon field="name" />
                                         </div>
                                     </th>
@@ -574,10 +573,10 @@ export default function Index({ pageTitle, employees, departments, filters }) {
                                                     <td colSpan="7" className="px-6 py-4 bg-gray-50">
                                                         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                                                             <div>
-                                                                <h4 className="text-sm font-medium text-gray-900 mb-2">Employee Details</h4>
+                                                                <h4 className="text-sm font-medium text-gray-900 mb-2">Officer/Staff Details</h4>
                                                                 <div className="space-y-2 text-sm">
                                                                     <div className="flex">
-                                                                        <span className="text-gray-500 w-32">Employee ID:</span>
+                                                                        <span className="text-gray-500 w-32">Officer/Staff ID:</span>
                                                                         <span className="text-gray-900">{employee.id_number}</span>
                                                                     </div>
                                                                     <div className="flex">
@@ -652,7 +651,7 @@ export default function Index({ pageTitle, employees, departments, filters }) {
                                             <div className="text-gray-400 mb-4">
                                                 <User className="w-12 h-12 mx-auto" />
                                             </div>
-                                            <h3 className="text-lg font-medium text-gray-900 mb-2">No employees found</h3>
+                                            <h3 className="text-lg font-medium text-gray-900 mb-2">No officers/staffs found</h3>
                                             <p className="text-gray-600 mb-6">
                                                 {search || selectedDepartment || selectedStatus
                                                     ? 'Try adjusting your search or filter to find what you are looking for.'
@@ -664,7 +663,7 @@ export default function Index({ pageTitle, employees, departments, filters }) {
                                                 className="inline-flex items-center px-4 py-2 bg-blue-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-blue-700"
                                             >
                                                 <UserPlus className="w-4 h-4 mr-2" />
-                                                Add Employee
+                                                Add officer/staff
                                             </Link>
                                         </td>
                                     </tr>

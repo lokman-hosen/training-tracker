@@ -32,7 +32,7 @@ export default function Login({ status, canResetPassword }) {
                         </div>
                     </div>
                     <h2 className="text-2xl font-bold text-gray-800">Training Tracker</h2>
-                    <p className="text-gray-600 mt-2">Office Employee/Staff Training System</p>
+                    <p className="text-gray-600 mt-2">Officer's & Staff Training System</p>
                 </div>
 
                 {status && (
@@ -131,7 +131,7 @@ export default function Login({ status, canResetPassword }) {
                 <div className="mt-8 pt-6 border-t border-gray-200">
                     <div className="text-center">
                         <p className="text-sm text-gray-600">
-                            Office Employee/Staff Training Management System
+                            Officer's & Staff Training Management System
                         </p>
                         <p className="text-xs text-gray-500 mt-2">
                             For access issues, contact system administrator

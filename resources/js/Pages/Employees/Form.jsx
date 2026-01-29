@@ -46,7 +46,7 @@ export default function Form({ employee = null }) {
         <form onSubmit={handleSubmit} className="space-y-6">
             {/* Personal Information Section */}
             <div className="bg-white shadow rounded-lg p-6">
-                <h3 className="text-lg font-medium text-gray-900 mb-6">Employee Information</h3>
+                <h3 className="text-lg font-medium text-gray-900 mb-6">Officer/Staff Information</h3>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     {/* Employee ID */}
@@ -150,7 +150,7 @@ export default function Form({ employee = null }) {
                     disabled={processing}
                     className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50"
                 >
-                    {processing ? 'Saving...' : employee ? 'Update Employee' : 'Create Employee'}
+                    {processing ? 'Saving...' : employee ? 'Update Employee' : 'Create Officer/Staff'}
                 </button>
             </div>
         </form>
