@@ -40,7 +40,7 @@ export default function AdminLayout({ children, title }) {
             current: route().current('admin.trainings.*')
         },
         {
-            name: 'Users',
+            name: 'Admin Users',
             href: route('admin.users.index'),
             icon: Users,
             current: route().current('admin.users.*'),

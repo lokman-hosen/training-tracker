@@ -123,7 +123,7 @@ export default function Index({ employees, allEmployees, allTrainings, filters }
                             <div>
                                 <h2 className="text-2xl font-bold text-gray-800">Training Reports</h2>
                                 <p className="text-gray-600 mt-1">
-                                    Generate and export employee training reports
+                                    Generate and export officers/staffs training reports
                                 </p>
                             </div>
                             <div className="mt-4 md:mt-0 flex items-center space-x-3">
@@ -170,7 +170,7 @@ export default function Index({ employees, allEmployees, allTrainings, filters }
                                     <div className="flex items-center">
                                         <Users className="w-5 h-5 text-blue-600 mr-2" />
                                         <div>
-                                            <p className="text-sm text-blue-700">Employees</p>
+                                            <p className="text-sm text-blue-700">Officers/staffs</p>
                                             <p className="text-lg font-bold text-blue-900">{employees.total}</p>
                                         </div>
                                     </div>
@@ -247,7 +247,7 @@ export default function Index({ employees, allEmployees, allTrainings, filters }
                         <div className="px-6 py-4 border-b border-gray-200 bg-gray-50">
                             <div className="flex items-center justify-between">
                                 <div className="text-sm font-medium text-gray-700">
-                                    Employee Training Summary
+                                    Officers/staffs Training Summary
                                 </div>
                                 <div className="text-sm text-gray-500">
                                     Showing {employees.from || 0} to {employees.to || 0} of {employees.total} employees
@@ -260,7 +260,7 @@ export default function Index({ employees, allEmployees, allTrainings, filters }
                                 <thead className="bg-gray-50">
                                 <tr>
                                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                        Employee
+                                        officer/staff
                                     </th>
                                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                         Contact

@@ -183,7 +183,7 @@
 </head>
 <body>
 <div class="header">
-    <h1>Employee Training Detail Report</h1>
+    <h1>Officer/staff Training Detail Report</h1>
     <div class="subtitle">{{ $employee->name }} ({{ $employee->id_number ?? $employee->phone }})</div>
     <div style="margin-top: 10px; font-size: 11px; color: #6b7280;">
         Generated on: {{ $report_date }}
@@ -191,12 +191,14 @@
 </div>
 
 <div class="employee-info">
-    <h3 style="margin-top: 0; color: #374151; font-size: 16px;">Employee Information</h3>
+    <h3 style="margin-top: 0; color: #374151; font-size: 16px;">Officer Information</h3>
     <div class="info-grid">
-        <div class="info-item">
-            <div class="info-label">Employee ID</div>
-            <div class="info-value">{{ $employee->id_number ?? $employee->phone }}</div>
-        </div>
+        @if($employee->id_number)
+            <div class="info-item">
+                <div class="info-label">Officer/staff ID</div>
+                <div class="info-value">{{ $employee->id_number}}</div>
+            </div>
+        @endif
         <div class="info-item">
             <div class="info-label">Department</div>
             <div class="info-value">{{ $employee->department ?? 'N/A' }}</div>
@@ -252,7 +254,7 @@
             <td>{{ $training->topic }}</td>
             <td>{{ date('d M, Y h:i A', strtotime($training->start_date)) }}</td>
             <td>{{ date('d M, Y h:i A', strtotime($training->end_date)) }}</td>
-            <td style="text-align: center;">{{ number_format($training->training_hours, 1) }} hrs</td>
+            <td style="text-align: center;">{{ abs(number_format($training->training_hours, 1)) }} hrs</td>
             <td style="text-align: center;">
                     <span class="status-badge {{ $training->pivot->attended ? 'attended' : 'not-attended' }}">
                         {{ $training->pivot->attended ? 'Yes' : 'No' }}
@@ -277,7 +279,7 @@
         <tr class="total-row">
             <td colspan="5" style="text-align: right; font-size: 12px;"><strong>Total Completed Training Hours:</strong></td>
             <td style="text-align: center; font-size: 12px;">
-                <strong>{{ number_format($totalHours, 1) }} hrs</strong>
+                <strong>{{ abs(number_format($totalHours, 1)) }} hrs</strong>
             </td>
             <td colspan="3" style="text-align: center; font-size: 12px;">
                 <strong>Summary: {{ $attended_trainings }} attended / {{ $completed_trainings }} completed</strong>
@@ -304,7 +306,7 @@
                 <div class="summary-label">Completed</div>
             </div>
             <div class="summary-item">
-                <div class="summary-value">{{ number_format($totalHours, 1) }}</div>
+                <div class="summary-value">{{ abs(number_format($totalHours, 1)) }}</div>
                 <div class="summary-label">Total Hours</div>
             </div>
         </div>
