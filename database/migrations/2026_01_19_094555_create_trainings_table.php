@@ -18,9 +18,9 @@ return new class extends Migration
             $table->text('location');
             $table->dateTime('start_date');
             $table->dateTime('end_date');
-            $table->string('trainer_name');
-            $table->string('trainer_email');
-            $table->string('trainer_phone');
+            $table->string('trainer_name')->nullable();
+            $table->string('trainer_email')->nullable();
+            $table->string('trainer_phone')->nullable();
             $table->text('description')->nullable();
             $table->timestamps();
             $table->softDeletes();
@@ -35,5 +35,3 @@ return new class extends Migration
         Schema::dropIfExists('trainings');
     }
 };
-
-//2026_01_19_095120_create_trainings_table
