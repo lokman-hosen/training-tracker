@@ -440,7 +440,7 @@ export default function Index({ pageTitle, employees, departments, filters }) {
                                                                 {employee.name}
                                                             </div>
                                                             <div className="text-sm text-gray-500">
-                                                                {employee.id_number}
+                                                                {employee.id_number ?? employee.phone}
                                                             </div>
                                                             <div className="text-xs text-gray-400 mt-1">
                                                                 {employee.designation}
@@ -577,7 +577,7 @@ export default function Index({ pageTitle, employees, departments, filters }) {
                                                                 <div className="space-y-2 text-sm">
                                                                     <div className="flex">
                                                                         <span className="text-gray-500 w-32">Officer/Staff ID:</span>
-                                                                        <span className="text-gray-900">{employee.id_number}</span>
+                                                                        <span className="text-gray-900">{employee.id_number ?? employee.phone}</span>
                                                                     </div>
                                                                     <div className="flex">
                                                                         <span className="text-gray-500 w-32">Designation:</span>

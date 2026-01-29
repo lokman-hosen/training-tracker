@@ -339,7 +339,7 @@ export default function Show({ training, availableEmployees }) {
                                                                     {employee.name}
                                                                 </div>
                                                                 <div className="text-xs text-gray-500">
-                                                                    {employee.id_number} • {employee.department || 'No Department'}
+                                                                    {employee.id_number ?? employee.phone} • {employee.department || 'No Department'}
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -417,7 +417,7 @@ export default function Show({ training, availableEmployees }) {
                                                                 <div>
                                                                     <h4 className="font-medium text-gray-900">{employee.name}</h4>
                                                                     <p className="text-sm text-gray-500">
-                                                                        {employee.id_number} • {employee.department}
+                                                                        {employee.id_number ?? employee.phone} • {employee.department}
                                                                     </p>
                                                                 </div>
                                                                 <div className="flex items-center space-x-2">

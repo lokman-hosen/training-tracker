@@ -59,7 +59,7 @@ class ReportController extends Controller
             return $employee;
         });
 
-        $allEmployees = Employee::select('id', 'name', 'id_number')->get();
+        $allEmployees = Employee::select('id', 'name', 'id_number','phone')->get();
         $allTrainings = Training::select('id', 'name')->get();
 
         return Inertia::render('Reports/Index', [
@@ -176,6 +176,6 @@ class ReportController extends Controller
 
         $pdf = PDF::loadView('pdf.employee-detail', $data);
 
-        return $pdf->download('employee-' . $employee->id_number . '-training-report-' . date('Y-m-d') . '.pdf');
+        return $pdf->download('employee-' . $employee->id_number ?? $employee->phone . '-training-report-' . date('Y-m-d') . '.pdf');
     }
 }

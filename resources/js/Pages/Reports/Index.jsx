@@ -89,7 +89,7 @@ export default function Index({ employees, allEmployees, allTrainings, filters }
 
     const employeeOptions = allEmployees.map(emp => ({
         value: emp.id,
-        label: `${emp.name} (${emp.id_number})`
+        label: `${emp.name} (${emp.id_number ?? emp.phone})`
     }));
 
     const trainingOptions = allTrainings.map(train => ({
@@ -302,7 +302,7 @@ export default function Index({ employees, allEmployees, allTrainings, filters }
                                                                 {employee.name}
                                                             </div>
                                                             <div className="text-sm text-gray-500">
-                                                                {employee.id_number}
+                                                                {employee.id_number ?? employee.phone}
                                                             </div>
                                                             <div className="text-xs text-gray-400 mt-1">
                                                                 {employee.department || 'No Department'} • {employee.designation}

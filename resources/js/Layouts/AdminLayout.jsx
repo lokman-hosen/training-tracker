@@ -28,7 +28,7 @@ export default function AdminLayout({ children, title }) {
             current: route().current('admin.dashboard')
         },
         {
-            name: 'officers/staffs',
+            name: 'Officers/staffs',
             href: route('admin.employees.index'),
             icon: UserCircle,
             current: route().current('admin.employees.*')

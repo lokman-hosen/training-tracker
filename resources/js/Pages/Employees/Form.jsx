@@ -56,7 +56,6 @@ export default function Form({ employee = null }) {
                         value={data.id_number}
                         onChange={(e) => setData('id_number', e.target.value)}
                         error={errors.id_number}
-                        required
                         placeholder="Enter employee ID"
                     />
 

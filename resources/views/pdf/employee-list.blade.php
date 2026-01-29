@@ -203,7 +203,7 @@
     @foreach($employees as $index => $employee)
         <tr>
             <td>{{ $index + 1 }}</td>
-            <td>{{ $employee->id_number }}</td>
+            <td>{{ $employee->id_number ?? 'n/a' }}</td>
             <td>{{ $employee->name }}</td>
             <td>
                 {{ $employee->phone }}<br>

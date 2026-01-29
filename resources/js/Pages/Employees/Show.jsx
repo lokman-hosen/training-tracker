@@ -99,7 +99,7 @@ export default function Show({ pageTitle, employee, availableTrainings }) {
                                         <div>
                                             <h2 className="text-2xl font-bold text-gray-800">{employee.name}</h2>
                                             <p className="text-gray-600">{employee.designation}</p>
-                                            <p className="text-sm text-gray-500">ID: {employee.id_number}</p>
+                                            <p className="text-sm text-gray-500">ID: {employee.id_number ?? employee.phone}</p>
                                         </div>
                                         <div className="mt-4 md:mt-0">
                                             <Link

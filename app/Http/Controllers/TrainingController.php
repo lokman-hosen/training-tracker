@@ -75,7 +75,7 @@ class TrainingController extends Controller
 
         $availableEmployees = Employee::whereDoesntHave('trainings', function ($query) use ($training) {
             $query->where('training_id', $training->id);
-        })->get(['id', 'name', 'id_number','department']);
+        })->get(['id', 'name', 'id_number', 'phone','department']);
 
         return Inertia::render('Trainings/Show', [
             'training' => $training,
@@ -85,9 +85,9 @@ class TrainingController extends Controller
 
     public function edit(Training $training)
     {
-        $training->load('employees:id,name,id_number,department,image,designation');
+        $training->load('employees:id,name,id_number,phone,department,image,designation');
 
-        $employees = Employee::select('id', 'name', 'id_number', 'department', 'image', 'designation')
+        $employees = Employee::select('id', 'name', 'id_number', 'phone','department', 'image', 'designation')
             ->get();
 
         return Inertia::render('Trainings/Edit', [

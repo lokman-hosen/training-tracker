@@ -118,7 +118,7 @@ export default function Show({ employee, totalHours }) {
                                         <div className="flex items-center space-x-4 mt-2">
                                             <div className="flex items-center text-sm text-gray-600">
                                                 <span className="font-medium">ID:</span>
-                                                <span className="ml-1">{employee.id_number}</span>
+                                                <span className="ml-1">{employee.id_number ?? employee.phone}</span>
                                             </div>
                                             <div className="flex items-center text-sm text-gray-600">
                                                 <Building className="w-4 h-4 mr-1" />

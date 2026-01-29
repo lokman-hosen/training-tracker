@@ -14,11 +14,9 @@ use Inertia\Response;
 
 class EmployeeController extends Controller
 {
-    protected $employeeService;
-
-    public function __construct(EmployeeService $employeeService)
+    public function __construct(protected EmployeeService $employeeService)
     {
-        $this->employeeService = $employeeService;
+        //
     }
 
     public function index(Request $request): Response
@@ -80,7 +78,7 @@ class EmployeeController extends Controller
     {
         $validated = $request->validate([
             'name' => 'required|string|max:255',
-            'id_number' => 'required|unique:employees,id_number,' . $employee->id,
+            'id_number' => 'nullable|unique:employees,id_number,' . $employee->id,
             'phone' => 'required|unique:employees,phone,' . $employee->id,
             'email' => 'nullable|email|unique:employees,email,' . $employee->id,
             'designation' => 'required|string',

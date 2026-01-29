@@ -23,7 +23,7 @@ class UpdateEmployeeRequest extends FormRequest
     {
         return [
             'name' => 'required|string|max:255',
-            'id_number' => 'required|unique:employees,id_number,' . $this->id,
+            'id_number' => 'nullable|unique:employees,id_number,' . $this->id,
             'phone' => 'required|unique:employees,phone,' . $this->id,
             'email' => 'nullable|email|unique:employees,email,' . $this->id,
             'designation' => 'required|string',

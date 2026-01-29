@@ -116,7 +116,7 @@ export default function TrainingForm({ training = null }) {
 
     const employeeOptions = employees.map(employee => ({
         value: employee.id,
-        label: `${employee.name} (${employee.id_number}) - ${employee.department || 'No Department'}`
+        label: `${employee.name} (${employee.id_number ?? employee.phone}) - ${employee.department || 'No Department'}`
     }));
 
     const calculateDuration = () => {

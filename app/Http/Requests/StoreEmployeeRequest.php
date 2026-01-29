@@ -23,7 +23,7 @@ class StoreEmployeeRequest extends FormRequest
     {
         return [
             'name' => 'required|string|max:255',
-            'id_number' => 'required|unique:employees',
+            'id_number' => 'nullable|unique:employees',
             'phone' => 'required|unique:employees',
             'email' => 'nullable|email|unique:employees',
             'designation' => 'required|string',
@@ -41,7 +41,7 @@ class StoreEmployeeRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'id_number.required' => 'The employee ID number field is required',
+            'id_number.unique' => 'The employee ID number field is required',
         ];
     }
 }
